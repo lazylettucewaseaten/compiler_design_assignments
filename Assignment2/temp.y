@@ -97,9 +97,22 @@ Operand:
 	
 //ma access later
 
+
+Statement : Expression | IfStmt | WhileStmt | ForStmt | BreakStmt | ReturnStmt | StmtBlock;
+
+StmtBlock:
+
+WhileStmt:
+
+ForStmt:
+
+ReturnStmt:
+
+BreakStmt:
+
 %%
 
-//untracket  , formalparamer,stmtblock,
+//untracket  ,stmtblock,
 
 void main(){
 	printf("Enter your code\n");
