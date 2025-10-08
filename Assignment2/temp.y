@@ -97,7 +97,13 @@ Operand:
 
 Statement : Expression | IfStmt | WhileStmt | ForStmt | BreakStmt | ReturnStmt | StmtBlock;
 
-StmtBlock:
+StmtBlock: CURLYLBRACKET 
+
+ConditionalStmt : IfStmt | IfElseStmt;
+
+LoopStmt : WhileStmt | ForStmt | DoWhileStmt;
+
+OtherStmt : ReturnStmt | BreakStmt
 
 WhileStmt:
 
