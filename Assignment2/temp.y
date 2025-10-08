@@ -99,14 +99,18 @@ Statement : Expression | IfStmt | WhileStmt | ForStmt | BreakStmt | ReturnStmt |
 
 StmtBlock:
 
-WhileStmt:
+WhileStmt: WHILE ROUNDLBRACKET Expression ROUNDRBRACKET Statement ;
 
-ForStmt:
+DoWhileStmt: DO Statement WHILE ROUNDLBRACKET Expression ROUNDRBRACKET SEMICOLON ;
 
-ReturnStmt:
+ForStmt: FOR ROUNDLBRACKET Expression SEMICOLON Expression SEMICOLON Expression SEMICOLON ROUNDRBRACKET Statement ;
 
-BreakStmt:
+BreakStmt:BREAK SEMICOLON ;
 
+ReturnStmt : RETURN Expression SEMICOLON ;
+
+IfStmt: IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement ;
+IfElseStmt: IF ROUNDLBRACKET Expression ROUNDRBRACKET ELSE Statement ;
 %%
 
 //untracket  ,stmtblock,
