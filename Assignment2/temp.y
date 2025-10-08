@@ -38,8 +38,10 @@ ClassDecl:
 	
 field: VarDecl | FuncDecl;
 type : INT | DOUBLE | BOOL | STRING | VOID ;
-formalParameters: | type IDENTIFIER;
 
+formalParameters: formalParameters list | list;
+
+list :  | type IDENTIFIER ;
 
 Expression:
 	OperatorExp
