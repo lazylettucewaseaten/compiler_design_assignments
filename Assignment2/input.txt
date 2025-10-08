@@ -1,37 +1,9 @@
-// Sample program for syntax analyzer testing
-
-int globalVar;
-double values;
-bool flag;
-
-class MathUtils {
-    int factor;
-    
-    int multiply(int a, int b) {
-        return a * b;
-    }
-
-    void resetFactor() {
-        factor = 1;
-    }
-}
-
-int add(int x, int y) {
-    int sum;
-    sum = x + y;
-    return sum;
-}
-
-void printResult(int r) {
-    // imaginary print statement
-}
-
-void main() {
+void main () {
     int i;
     double result;
     bool done;
     int arr;
-    arr = NewArray(10, int);
+    arr NewArray(10, int);
 
     i = 0;
     result = 0.0;
@@ -59,3 +31,31 @@ void main() {
     break;
     return;
 }
+
+int globalVar;
+double values;
+bool flag;
+
+class MathUtils {
+    int factor;
+    
+    int multiply(int a, int b) {
+        return a * b;
+    }
+
+    void resetFactor() {
+        factor = 1;
+    }
+}
+
+int add(int x, int y) {
+    int sum;
+    sum = x + y;
+    return sum;
+}
+
+void printResult(int r) {
+    // imaginary print statement
+}
+
+
