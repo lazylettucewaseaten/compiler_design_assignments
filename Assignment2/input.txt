@@ -1,9 +1,9 @@
-void main() {
+void main () {
     int i;
     double result;
     bool done;
     int arr;
-    arr = NewArray(10, int);
+    arr NewArray(10, int);
 
     i = 0;
     result = 0.0;
@@ -31,7 +31,6 @@ void main() {
     break;
     return;
 }
-// Sample program for syntax analyzer testing
 
 int globalVar;
 double values;
@@ -58,4 +57,5 @@ int add(int x, int y) {
 void printResult(int r) {
     // imaginary print statement
 }
+
 
