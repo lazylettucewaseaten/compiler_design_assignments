@@ -75,15 +75,25 @@ ActualParameters:
 		|
 		;
 OperatorExp:
+	   Operand
 	   |
-	   Operand Operators Operand OperatorExp
+	   OperatorExp Operators OperatorExp 
 	   |
-	   OpenBracket Operand Operators Operand 
+	   ROUNDLBRACKET OperatorExp ROUNDRBRACKET
+	   ;
 	   
 	   
-Operators:
+Operators: MULTIPLITIVE | ADDITIVE | RELATIONAL | EQUALITY | AND | OR ;
 
-Operand:
+Operand: 
+	UNARY IDENTIFIER |
+	UNARY INTEGER|
+	IDENTIFER|
+	INTEGER
+	;
+	
+//ma access later
+
 %%
 
 //untracket  , formalparamer,stmtblock,
