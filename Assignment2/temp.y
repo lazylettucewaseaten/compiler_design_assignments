@@ -3,37 +3,34 @@
 #include<stdlib.h>
 %}
 
-%token INT DOUBLE BOOL STRING VOID IDENTIFIER 
+%token INT DOUBLE BOOL STRING VOID IDENTIFIER MAIN
+%start program
 
 %%
+
+program :  declarations ;
+
+declarations : declarations declaration  |FuncMain	;
+
+
 declaration: VarDecl | FuncDecl | ClassDecl;
+
+FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock
+	
 
 VarDecl:
        type IDENTIFIER
-       {
-       printf("valid variable declaration\n");
-       }
        |
        IDENTIFIER NEWARRAY ROUNDLBRACKET  INTEGER  COMMA type ROUNDRBRACKET SEMICOLON
-       {
-       printf("valid new array declaration\n");
-       }
-       
        ;
 	   //integer hoga ya kya hoga
 
 FuncDecl:
 	type IDENTIFIER ROUNDLBRACKET formalParameters ROUNDRBRACKET StmtBlock 
-	{
-	printf("valid function declaration\n");
-	}
 	;
 	
 ClassDecl:
 	CLASS IDENTIFIER CURLYLBRACKET field ASTERIK CURLYRBRACKET
-	{
-	printf("valid class declration\n");
-	}
 	;
 	
 field: VarDecl | FuncDecl;
