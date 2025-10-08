@@ -95,9 +95,13 @@ Operand:
 //ma access later
 
 
-Statement : Expression | IfStmt | WhileStmt | ForStmt | BreakStmt | ReturnStmt | StmtBlock;
+Statement : Expression |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
 
-StmtBlock: CURLYLBRACKET 
+StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET;
+
+Stmts :  Stmts Statement | Stmts VarDecl | ;
+
+
 
 ConditionalStmt : IfStmt | IfElseStmt;
 
