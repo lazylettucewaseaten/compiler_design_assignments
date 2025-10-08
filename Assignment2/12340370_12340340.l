@@ -1,39 +1,32 @@
 %{
 #include<stdio.h>
+#include "y.tab.h"
 #include<ctype.h>    
 
 %}
 %%
-"void"             {return toupper(yytext);}
-"int"               {return toupper(yytext);}
-"double"                {return toupper(yytext);}
-"bool"                  {return toupper(yytext);}
-"string"                    {return toupper(yytext);}
-"extends"                   {return toupper(yytext);}
-"implements"                    {return toupper(yytext);}
-"for"                   {return toupper(yytext);}
-"while"                 {return toupper(yytext);}
-"ReadInteger"                   {return toupper(yytext);}
-"ReadLine"                  {return toupper(yytext);}
-"class"                 {return toupper(yytext);}
-"interface"                     {return toupper(yytext);}
-"if"                    {return toupper(yytext);}
-"else"                  {return toupper(yytext);}
-"return"                    {return toupper(yytext);}
-"null"                  {return toupper(yytext);}
-"this"                  {return toupper(yytext);}
-"break"                     {return toupper(yytext);}
-"New"                   {return toupper(yytext);}
-"NewArray"                  {return toupper(yytext);}
-"Print"                 {return toupper(yytext);}
-"main"                  {return toupper(yytext);}
+"void"           { return VOID; }
+"int"            { return INT; }
+"double"         { return DOUBLE; }
+"bool"           { return BOOL; }
+"string"         { return STRING; }
+"for"            { return FOR; }
+"while"          { return WHILE; }
 
+"class"          { return CLASS; }
 
-("true"|"false") {return BOOLEAN;}
+"if"             { return IF; }
+"else"           { return ELSE; }
+"return"         { return RETURN; }
+
+"break"          { return BREAK; }
+"New"            { return NEW; }
+"NewArray"       { return NEWARRAY; }
+"main"           { return MAIN; }
+
 
 [0-9]+|0[xX][a-fA-F0-9]+ {return INTEGER;}
  
-[0-9]+\.[0-9]+([Ee][+-]?[0-9]+)? {return DVALUE;} 
 
 \.[0-9]+([Ee][-+]?[0-9]+)? {printf("(%s) is not a valid double as there should be a number before the dot\n", yytext);} 
 
@@ -49,7 +42,6 @@
 [_][a-zA-Z0-9_]* {printf("(%s) this is not a valid identifier \n", yytext);} 
 
 \"[^\n\"]*\" {return STRING;}
-"."|"[]"      {return M_A_ACCESS;}
 "!"|"unary -"       {return UNARY;}
 "*"|"/"|"%"         {return MULTIPLITIVE;}
 "+"|"-"             {return ADDITIVE;}
@@ -78,10 +70,8 @@
 int yywrap(){
     return 1;
 }
-int main(){
-    yylex();
-    return 0;
-}
+
 
 
 //our assignment made by bhomia and ranjan
+//"."|"[]"      {return M_A_ACCESS;}
