@@ -4,7 +4,7 @@
 %}
 
 %token INT DOUBLE BOOL STRING VOID  MAIN ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN
-%token IDENTIFIER MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET '*' CURLYLBRACKET
+%token IDENTIFIER MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET  CURLYLBRACKET
 %token CLASS INTEGER COMMA NEWARRAY UNARY RETURN BREAK IF ELSE DO WHILE SQUARERBRACKET DOT SQUARELBRACKET
 %start program
 
@@ -22,12 +22,15 @@
 
 %%
 
-program :  declarations FuncMain declarations ;
+program : FuncMain declarations
+        | declarations_plus FuncMain declarations
+        ;
+
+declarations: | declarations declaration ;
+
+declarations_plus: declaration | declarations_plus declaration;
 
 
-declarations : declarations finalstmt | finalstmt;
-
-finalstmt: declaration | ;
 
 
 declaration: VarDecl | FuncDecl | ClassDecl  ;
@@ -46,15 +49,21 @@ FuncDecl:
 	;
 	
 ClassDecl:
-	CLASS IDENTIFIER CURLYLBRACKET field '*' CURLYRBRACKET
+	CLASS IDENTIFIER CURLYLBRACKET FieldList CURLYRBRACKET
 	;
+
+FieldList:
+     | FieldList field
+    ;
 	
 field: VarDecl | FuncDecl;
 type : INT | DOUBLE | BOOL | STRING | VOID ;
 
-formalParameters: formalParameters list | list;
+formalParameters:  | formalParameterList;
 
-list :  | type IDENTIFIER ;
+formalParameterList: formalParameter | formalParameterList COMMA formalParameter;
+
+formalParameter: type IDENTIFIER;
 
 Expression:
 	OperatorExp
@@ -86,41 +95,66 @@ CallExp:
 	Expression DOT IDENTIFIER ROUNDLBRACKET ActualParameters ROUNDRBRACKET 
 	;
 
-ActualParameters:
-		Expression ActualParameters 
-		|
-		COMMA ActualParameters 
-		|
-		;
+ActualParameters: | ActualParametersList;
+ActualParametersList : Expression | ActualParametersList COMMA Expression;
+
 OperatorExp:
-	   Operand
-	   |
-	   OperatorExp Operators OperatorExp 
+	   OrExp
 	   |
 	   ROUNDLBRACKET OperatorExp ROUNDRBRACKET
 	   ;
 	   
-	   
-Operators: MULTIPLITIVE | ADDITIVE | RELATIONAL | EQUALITY | AND | OR ;
+OrExp:
+    AndExp
+    | OrExp OR AndExp
+    ;
 
+AndExp:
+    EqualityExp
+    | AndExp AND EqualityExp
+    ;
+
+EqualityExp:
+    RelationalExp
+    | EqualityExp EQUALITY RelationalExp
+    ;
+
+RelationalExp:
+    AdditiveExp
+    | RelationalExp RELATIONAL AdditiveExp
+    ;
+
+AdditiveExp:
+    MultiplicativeExp
+    | AdditiveExp ADDITIVE MultiplicativeExp
+    ;
+
+MultiplicativeExp:
+    UnaryExp
+    | MultiplicativeExp MULTIPLITIVE UnaryExp
+    ;
+
+UnaryExp:
+    Operand
+    | UNARY UnaryExp
+    ;
+	   
 Operand: 
-	UNARY IDENTIFIER |
-	UNARY INTEGER|
 	IDENTIFIER|
 	INTEGER
 	;
 	
 
 
-Statement : Expression SEMICOLON |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
 
 StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET;
 
-Stmts :  Stmts Statement | Stmts VarDecl | ;
+Stmts :   Statement Stmts |  VarDecl Stmts | ;
+
+Statement : Expression SEMICOLON |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
 
 
-
-ConditionalStmt : IfStmt | IfElseStmt;
+ConditionalStmt : IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement | IF ROUNDLBRACKET Expression ROUNDRBRACKET ELSE Statement;
 
 LoopStmt : WhileStmt | ForStmt | DoWhileStmt;
 
@@ -130,14 +164,13 @@ WhileStmt: WHILE ROUNDLBRACKET Expression ROUNDRBRACKET Statement ;
 
 DoWhileStmt: DO Statement WHILE ROUNDLBRACKET Expression ROUNDRBRACKET SEMICOLON ;
 
-ForStmt: FOR ROUNDLBRACKET Expression SEMICOLON Expression SEMICOLON Expression SEMICOLON ROUNDRBRACKET Statement ;
+ForStmt: FOR ROUNDLBRACKET Expression SEMICOLON Expression SEMICOLON Expression ROUNDRBRACKET Statement ;
 
 BreakStmt:BREAK SEMICOLON ;
 
 ReturnStmt : RETURN Expression SEMICOLON ;
 
-IfStmt: IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement ;
-IfElseStmt: IF ROUNDLBRACKET Expression ROUNDRBRACKET ELSE Statement ;
+
 %%
 
 
