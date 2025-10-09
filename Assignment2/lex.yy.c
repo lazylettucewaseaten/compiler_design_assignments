@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 41
-#define YY_END_OF_BUFFER 42
+#define YY_NUM_RULES 42
+#define YY_END_OF_BUFFER 43
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -362,19 +362,19 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[122] =
     {   0,
-        0,    0,   42,   41,   40,   21,   41,   22,   41,   31,
-       32,   23,   30,   35,   22,   16,   16,   29,   24,   27,
-       24,   18,   18,   36,   37,   19,   18,   18,   18,   18,
-       18,   18,   18,   18,   18,   18,   18,   18,   33,   41,
-       34,   40,   25,    0,   20,   26,   17,    0,   38,   16,
-        0,   24,   18,   18,   19,   18,   18,   18,   18,   18,
-       18,    9,   18,   18,   18,   18,   18,   18,   18,   28,
-        0,    0,    0,   38,   16,   13,   18,   18,   18,   18,
-       18,    6,    2,   18,   18,   18,   18,   18,   18,    0,
-       17,   39,   18,    4,   18,   18,   18,   10,   15,   18,
+        0,    0,   43,   42,   41,   22,   42,   23,   42,   32,
+       33,   24,   31,   36,   23,   17,   17,   30,   25,   28,
+       25,   19,   19,   37,   38,   20,   19,   19,   19,   19,
+       19,   19,   19,   19,   19,   19,   19,   19,   34,   42,
+       35,   41,   26,    0,   21,   27,   18,    0,   39,   17,
+        0,   25,   19,   19,   20,   19,   19,   19,    8,   19,
+       19,   10,   19,   19,   19,   19,   19,   19,   19,   29,
+        0,    0,    0,   39,   17,   14,   19,   19,   19,   19,
+       19,    6,    2,   19,   19,   19,   19,   19,   19,    0,
+       18,   40,   19,    4,   19,   19,   19,   11,   16,   19,
 
-       18,   18,    1,   18,   18,   12,    8,   18,   18,   18,
-       18,    7,   18,    3,   11,    5,    0,   18,   21,   14,
+       19,   19,    1,   19,   19,   13,    9,   19,   19,   19,
+       19,    7,   19,    3,   12,    5,    0,   19,   22,   15,
         0
     } ;
 
@@ -848,55 +848,60 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
+#line 15 "12340370_12340340.l"
+{return DO;}
+	YY_BREAK
+case 9:
+YY_RULE_SETUP
 #line 16 "12340370_12340340.l"
 { return CLASS; }
 	YY_BREAK
-case 9:
+case 10:
 YY_RULE_SETUP
 #line 18 "12340370_12340340.l"
 { return IF; }
 	YY_BREAK
-case 10:
+case 11:
 YY_RULE_SETUP
 #line 19 "12340370_12340340.l"
 { return ELSE; }
 	YY_BREAK
-case 11:
+case 12:
 YY_RULE_SETUP
 #line 20 "12340370_12340340.l"
 { return RETURN; }
 	YY_BREAK
-case 12:
+case 13:
 YY_RULE_SETUP
 #line 22 "12340370_12340340.l"
 { return BREAK; }
 	YY_BREAK
-case 13:
+case 14:
 YY_RULE_SETUP
 #line 23 "12340370_12340340.l"
 { return NEW; }
 	YY_BREAK
-case 14:
+case 15:
 YY_RULE_SETUP
 #line 24 "12340370_12340340.l"
 { return NEWARRAY; }
 	YY_BREAK
-case 15:
+case 16:
 YY_RULE_SETUP
 #line 25 "12340370_12340340.l"
 { return MAIN; }
 	YY_BREAK
-case 16:
+case 17:
 YY_RULE_SETUP
 #line 28 "12340370_12340340.l"
 {return INTEGER;}
 	YY_BREAK
-case 17:
+case 18:
 YY_RULE_SETUP
 #line 31 "12340370_12340340.l"
 {printf("(%s) is not a valid double as there should be a number before the dot\n", yytext);} 
 	YY_BREAK
-case 18:
+case 19:
 YY_RULE_SETUP
 #line 35 "12340370_12340340.l"
 {if(strlen(yytext)<=31) return IDENTIFIER;
@@ -905,124 +910,124 @@ YY_RULE_SETUP
     }
     }
 	YY_BREAK
-case 19:
+case 20:
 YY_RULE_SETUP
 #line 42 "12340370_12340340.l"
 {printf("(%s) this is not a valid identifier \n", yytext);} 
 	YY_BREAK
-case 20:
+case 21:
 YY_RULE_SETUP
 #line 44 "12340370_12340340.l"
 {return STRING;}
 	YY_BREAK
-case 21:
+case 22:
 YY_RULE_SETUP
 #line 45 "12340370_12340340.l"
 {return UNARY;}
 	YY_BREAK
-case 22:
+case 23:
 YY_RULE_SETUP
 #line 46 "12340370_12340340.l"
 {return MULTIPLITIVE;}
 	YY_BREAK
-case 23:
+case 24:
 YY_RULE_SETUP
 #line 47 "12340370_12340340.l"
 {return ADDITIVE;}
 	YY_BREAK
-case 24:
+case 25:
 YY_RULE_SETUP
 #line 48 "12340370_12340340.l"
 {return RELATIONAL;}
 	YY_BREAK
-case 25:
+case 26:
 YY_RULE_SETUP
 #line 49 "12340370_12340340.l"
 {return EQUALITY;}
 	YY_BREAK
-case 26:
+case 27:
 YY_RULE_SETUP
 #line 50 "12340370_12340340.l"
 {return AND;}
 	YY_BREAK
-case 27:
+case 28:
 YY_RULE_SETUP
 #line 51 "12340370_12340340.l"
 {return ASSIGNMENT;}
 	YY_BREAK
-case 28:
+case 29:
 YY_RULE_SETUP
 #line 52 "12340370_12340340.l"
 {return OR;}
 	YY_BREAK
-case 29:
+case 30:
 YY_RULE_SETUP
 #line 53 "12340370_12340340.l"
 {return SEMICOLON;}
 	YY_BREAK
-case 30:
+case 31:
 YY_RULE_SETUP
 #line 54 "12340370_12340340.l"
 {return COMMA;}
 	YY_BREAK
-case 31:
+case 32:
 YY_RULE_SETUP
 #line 55 "12340370_12340340.l"
 {return ROUNDLBRACKET;}
 	YY_BREAK
-case 32:
+case 33:
 YY_RULE_SETUP
 #line 56 "12340370_12340340.l"
 {return ROUNDRBRACKET;}
 	YY_BREAK
-case 33:
+case 34:
 YY_RULE_SETUP
 #line 57 "12340370_12340340.l"
 {return CURLYLBRACKET;}
 	YY_BREAK
-case 34:
+case 35:
 YY_RULE_SETUP
 #line 58 "12340370_12340340.l"
 {return CURLYRBRACKET;}
 	YY_BREAK
-case 35:
+case 36:
 YY_RULE_SETUP
 #line 59 "12340370_12340340.l"
 {return DOT;}
 	YY_BREAK
-case 36:
+case 37:
 YY_RULE_SETUP
 #line 60 "12340370_12340340.l"
 {return SQUARELBRACKET;}
 	YY_BREAK
-case 37:
+case 38:
 YY_RULE_SETUP
 #line 61 "12340370_12340340.l"
 {return SQUARERBRACKET;}
 	YY_BREAK
-case 38:
+case 39:
 YY_RULE_SETUP
 #line 62 "12340370_12340340.l"
 {printf("Single Line Comments : %s\n",yytext);}
 	YY_BREAK
-case 39:
-/* rule 39 can match eol */
+case 40:
+/* rule 40 can match eol */
 YY_RULE_SETUP
 #line 64 "12340370_12340340.l"
 { printf("Multiline Comment: %s\n", yytext);}
 	YY_BREAK
-case 40:
-/* rule 40 can match eol */
+case 41:
+/* rule 41 can match eol */
 YY_RULE_SETUP
 #line 66 "12340370_12340340.l"
 
 	YY_BREAK
-case 41:
+case 42:
 YY_RULE_SETUP
 #line 69 "12340370_12340340.l"
 ECHO;
 	YY_BREAK
-#line 1026 "lex.yy.c"
+#line 1031 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

@@ -53,7 +53,9 @@ ClassDecl:
 	;
 
 FieldList:
-     | FieldList field
+    
+    | 
+    FieldList field 
     ;
 	
 field: VarDecl | FuncDecl;
@@ -154,7 +156,7 @@ Stmts :   Statement Stmts |  VarDecl Stmts | ;
 Statement : Expression SEMICOLON |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
 
 
-ConditionalStmt : IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement | IF ROUNDLBRACKET Expression ROUNDRBRACKET ELSE Statement;
+ConditionalStmt : IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement | IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement ELSE Statement;
 
 LoopStmt : WhileStmt | ForStmt | DoWhileStmt;
 
@@ -174,12 +176,15 @@ ReturnStmt : RETURN Expression SEMICOLON ;
 %%
 
 
-void main(){
-	printf("Enter your code\n");
+void main(int argc,char* argv){
+	
 	yyparse();
+    printf("Parsing successfull\n");
 }
 
 
 void yyerror(const char *s) {
     printf("Error: %s\n", s);
+    printf("Exiting the analysis \n");
+    exit(1);
 }

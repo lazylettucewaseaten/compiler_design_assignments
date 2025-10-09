@@ -12,7 +12,7 @@
 "string"         { return STRING; }
 "for"            { return FOR; }
 "while"          { return WHILE; }
-
+"do"             {return DO;}
 "class"          { return CLASS; }
 
 "if"             { return IF; }
