@@ -98,7 +98,7 @@ Operand:
 //ma access later
 
 
-Statement : Expression |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
+Statement : Expression SEMICOLON |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
 
 StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET;
 
