@@ -56,7 +56,9 @@
 ")"             {return ROUNDRBRACKET;}
 "{"             {return CURLYLBRACKET;}
 "}"             {return CURLYRBRACKET;}
-
+"."     {return DOT;}
+"["     {return SQUARELBRACKET;}
+"]"     {return SQUARERBRACKET;}
 "//"[^\n]* {printf("Single Line Comments : %s\n",yytext);}
 
 "/*"([^*]|\*+[^*/])*\*+"/"  { printf("Multiline Comment: %s\n", yytext);}
@@ -74,4 +76,3 @@ int yywrap(){
 
 
 //our assignment made by bhomia and ranjan
-//"."|"[]"      {return M_A_ACCESS;}
