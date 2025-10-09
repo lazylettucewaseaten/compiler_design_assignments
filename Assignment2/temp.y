@@ -22,12 +22,15 @@
 
 %%
 
-program :  declarations ;
-
-declarations : declarations declaration  |FuncMain	;
+program :  declarations FuncMain declarations ;
 
 
-declaration: VarDecl | FuncDecl | ClassDecl;
+declarations : declarations finalstmt | finalstmt;
+
+finalstmt: declaration | ;
+
+
+declaration: VarDecl | FuncDecl | ClassDecl  ;
 
 FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock
 	
