@@ -33,10 +33,12 @@ FuncDecl:
 	;
 	
 ClassDecl:
-	CLASS IDENTIFIER CURLYLBRACKET field '*' CURLYRBRACKET
+	CLASS IDENTIFIER CURLYLBRACKET fields CURLYRBRACKET
 	;
 	
-field: VarDecl | FuncDecl;
+fields: term| term COMMA fields ;
+
+term: VarDecl | FuncDecl;
 type : INT | DOUBLE | BOOL | STRING | VOID ;
 
 formalParameters: formalParameters list | list;
