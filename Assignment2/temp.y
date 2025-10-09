@@ -40,7 +40,6 @@ VarDecl:
        |
        IDENTIFIER NEWARRAY ROUNDLBRACKET  INTEGER  COMMA type ROUNDRBRACKET SEMICOLON
        ;
-	   //integer hoga ya kya hoga
 
 FuncDecl:
 	type IDENTIFIER ROUNDLBRACKET formalParameters ROUNDRBRACKET StmtBlock 
@@ -111,7 +110,6 @@ Operand:
 	INTEGER
 	;
 	
-//ma access later
 
 
 Statement : Expression |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
@@ -142,7 +140,6 @@ IfStmt: IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement ;
 IfElseStmt: IF ROUNDLBRACKET Expression ROUNDRBRACKET ELSE Statement ;
 %%
 
-//untracket  ,stmtblock,
 
 void main(){
 	printf("Enter your code\n");
