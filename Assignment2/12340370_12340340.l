@@ -1,9 +1,9 @@
 %{
 #include<stdio.h>
 #include "y.tab.h"
-   
-
+extern int yylineno;
 %}
+
 %%
 "void"           { return VOID; }
 "int"            { return INT; }
@@ -12,7 +12,7 @@
 "string"         { return STRING; }
 "for"            { return FOR; }
 "while"          { return WHILE; }
-"do"             {return DO;}
+"do"             { return DO;}
 "class"          { return CLASS; }
 
 "if"             { return IF; }
@@ -25,7 +25,8 @@
 "main"           { return MAIN; }
 
 
-[0-9]+|0[xX][a-fA-F0-9]+ {return INTEGER;}
+[0-9]+|0[xX][a-fA-F0-9]+|[0-9]+[.][0-9]+ {return NUMBER;}
+
  
 
 \.[0-9]+([Ee][-+]?[0-9]+)? {printf("(%s) is not a valid double as there should be a number before the dot\n", yytext);} 
@@ -41,7 +42,7 @@
 
 [_][a-zA-Z0-9_]* {printf("(%s) this is not a valid identifier \n", yytext);} 
 
-\"[^\n\"]*\" {return STRING;}
+\"[^\n\"]*\" {return STRING_LITERAL;}
 "!"|"unary -"       {return UNARY;}
 "*"|"/"|"%"         {return MULTIPLITIVE;}
 "+"|"-"             {return ADDITIVE;}
@@ -59,11 +60,9 @@
 "."     {return DOT;}
 "["     {return SQUARELBRACKET;}
 "]"     {return SQUARERBRACKET;}
-"//"[^\n]* {printf("Single Line Comments : %s\n",yytext);}
-
-"/*"([^*]|\*+[^*/])*\*+"/"  { printf("Multiline Comment: %s\n", yytext);}
-
-[ \n\t]+               
+"//"[^\n]* {}
+[ \n\t]+ {}
+"/*"([^*]|\*+[^*/])*\*+"/"  { }
 
    
 %%

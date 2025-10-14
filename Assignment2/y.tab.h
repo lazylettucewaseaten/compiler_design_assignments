@@ -65,31 +65,32 @@ extern int yydebug;
     SEMICOLON = 266,               /* SEMICOLON  */
     FOR = 267,                     /* FOR  */
     BOOLEAN = 268,                 /* BOOLEAN  */
-    IDENTIFIER = 269,              /* IDENTIFIER  */
-    MULTIPLITIVE = 270,            /* MULTIPLITIVE  */
-    ADDITIVE = 271,                /* ADDITIVE  */
-    RELATIONAL = 272,              /* RELATIONAL  */
-    EQUALITY = 273,                /* EQUALITY  */
-    AND = 274,                     /* AND  */
-    OR = 275,                      /* OR  */
-    ASSIGNMENT = 276,              /* ASSIGNMENT  */
-    NEW = 277,                     /* NEW  */
-    CURLYRBRACKET = 278,           /* CURLYRBRACKET  */
-    CURLYLBRACKET = 279,           /* CURLYLBRACKET  */
-    CLASS = 280,                   /* CLASS  */
-    INTEGER = 281,                 /* INTEGER  */
-    COMMA = 282,                   /* COMMA  */
-    NEWARRAY = 283,                /* NEWARRAY  */
-    UNARY = 284,                   /* UNARY  */
-    RETURN = 285,                  /* RETURN  */
-    BREAK = 286,                   /* BREAK  */
-    IF = 287,                      /* IF  */
-    ELSE = 288,                    /* ELSE  */
-    DO = 289,                      /* DO  */
-    WHILE = 290,                   /* WHILE  */
-    SQUARERBRACKET = 291,          /* SQUARERBRACKET  */
-    DOT = 292,                     /* DOT  */
-    SQUARELBRACKET = 293           /* SQUARELBRACKET  */
+    STRING_LITERAL = 269,          /* STRING_LITERAL  */
+    IDENTIFIER = 270,              /* IDENTIFIER  */
+    MULTIPLITIVE = 271,            /* MULTIPLITIVE  */
+    ADDITIVE = 272,                /* ADDITIVE  */
+    RELATIONAL = 273,              /* RELATIONAL  */
+    EQUALITY = 274,                /* EQUALITY  */
+    AND = 275,                     /* AND  */
+    OR = 276,                      /* OR  */
+    ASSIGNMENT = 277,              /* ASSIGNMENT  */
+    NEW = 278,                     /* NEW  */
+    CURLYRBRACKET = 279,           /* CURLYRBRACKET  */
+    CURLYLBRACKET = 280,           /* CURLYLBRACKET  */
+    CLASS = 281,                   /* CLASS  */
+    NUMBER = 282,                  /* NUMBER  */
+    COMMA = 283,                   /* COMMA  */
+    NEWARRAY = 284,                /* NEWARRAY  */
+    UNARY = 285,                   /* UNARY  */
+    RETURN = 286,                  /* RETURN  */
+    BREAK = 287,                   /* BREAK  */
+    IF = 288,                      /* IF  */
+    ELSE = 289,                    /* ELSE  */
+    DO = 290,                      /* DO  */
+    WHILE = 291,                   /* WHILE  */
+    SQUARERBRACKET = 292,          /* SQUARERBRACKET  */
+    DOT = 293,                     /* DOT  */
+    SQUARELBRACKET = 294           /* SQUARELBRACKET  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -109,31 +110,32 @@ extern int yydebug;
 #define SEMICOLON 266
 #define FOR 267
 #define BOOLEAN 268
-#define IDENTIFIER 269
-#define MULTIPLITIVE 270
-#define ADDITIVE 271
-#define RELATIONAL 272
-#define EQUALITY 273
-#define AND 274
-#define OR 275
-#define ASSIGNMENT 276
-#define NEW 277
-#define CURLYRBRACKET 278
-#define CURLYLBRACKET 279
-#define CLASS 280
-#define INTEGER 281
-#define COMMA 282
-#define NEWARRAY 283
-#define UNARY 284
-#define RETURN 285
-#define BREAK 286
-#define IF 287
-#define ELSE 288
-#define DO 289
-#define WHILE 290
-#define SQUARERBRACKET 291
-#define DOT 292
-#define SQUARELBRACKET 293
+#define STRING_LITERAL 269
+#define IDENTIFIER 270
+#define MULTIPLITIVE 271
+#define ADDITIVE 272
+#define RELATIONAL 273
+#define EQUALITY 274
+#define AND 275
+#define OR 276
+#define ASSIGNMENT 277
+#define NEW 278
+#define CURLYRBRACKET 279
+#define CURLYLBRACKET 280
+#define CLASS 281
+#define NUMBER 282
+#define COMMA 283
+#define NEWARRAY 284
+#define UNARY 285
+#define RETURN 286
+#define BREAK 287
+#define IF 288
+#define ELSE 289
+#define DO 290
+#define WHILE 291
+#define SQUARERBRACKET 292
+#define DOT 293
+#define SQUARELBRACKET 294
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

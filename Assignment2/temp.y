@@ -1,14 +1,11 @@
 %{
 #include<stdio.h>
 #include<stdlib.h>
-
-extern int yylex();
-extern FILE* yyin;
 %}
 
-%token INT DOUBLE BOOL STRING VOID  MAIN ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN STRING_LITERAL
+%token INT DOUBLE BOOL STRING VOID  MAIN ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN
 %token IDENTIFIER MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET  CURLYLBRACKET
-%token CLASS NUMBER COMMA NEWARRAY UNARY RETURN BREAK IF ELSE DO WHILE SQUARERBRACKET DOT SQUARELBRACKET
+%token CLASS INTEGER COMMA NEWARRAY UNARY RETURN BREAK IF ELSE DO WHILE SQUARERBRACKET DOT SQUARELBRACKET
 %start program
 
 %left DOT SQUARELBRACKET SQUARERBRACKET
@@ -44,7 +41,7 @@ FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock
 VarDecl:
        type IDENTIFIER SEMICOLON 
        |
-       IDENTIFIER NEWARRAY ROUNDLBRACKET  NUMBER  COMMA type ROUNDRBRACKET SEMICOLON
+       IDENTIFIER NEWARRAY ROUNDLBRACKET  INTEGER  COMMA type ROUNDRBRACKET SEMICOLON
        ;
 
 FuncDecl:
@@ -104,9 +101,11 @@ ActualParameters: | ActualParametersList;
 ActualParametersList : Expression | ActualParametersList COMMA Expression;
 
 OperatorExp:
-    OrExp
-    ;
-
+	   OrExp
+	   |
+	   ROUNDLBRACKET OperatorExp ROUNDRBRACKET
+	   ;
+	   
 OrExp:
     AndExp
     | OrExp OR AndExp
@@ -141,13 +140,12 @@ UnaryExp:
     Operand
     | UNARY UnaryExp
     ;
-       
+	   
 Operand: 
-    IDENTIFIER
-    | DOUBLE
-    | NUMBER
-    | ROUNDLBRACKET OperatorExp ROUNDRBRACKET 
-    ;
+	IDENTIFIER|
+	INTEGER
+	;
+	
 
 
 
@@ -172,40 +170,21 @@ ForStmt: FOR ROUNDLBRACKET Expression SEMICOLON Expression SEMICOLON Expression 
 
 BreakStmt:BREAK SEMICOLON ;
 
-ReturnStmt : RETURN Expression SEMICOLON | RETURN SEMICOLON;
+ReturnStmt : RETURN Expression SEMICOLON ;
 
 
 %%
 
 
-int main(int argc, char **argv) {
-    if (argc > 1) {
-        FILE *file = fopen(argv[1], "r");
-        if (!file) {
-            perror(argv[1]);
-            return 1;
-        }
-        yyin = file;
-    }
-
-    if (yyparse() == 0) {
-        printf("Parsing Successfull.\n");
-    } else {
-        printf("Parsing failed.\n");
-    }
-
-    return 0;
+void main(int argc,char* argv){
+	
+	yyparse();
+    printf("Parsing successfull\n");
 }
+
 
 void yyerror(const char *s) {
     printf("Error: %s\n", s);
     printf("Exiting the analysis \n");
     exit(1);
 }
-
-
-
-
-
-
-
