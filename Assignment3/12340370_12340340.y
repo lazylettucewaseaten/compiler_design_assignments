@@ -1,14 +1,31 @@
 %{
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "symbol.h"
 
 extern int yylex();
+extern int yyparse();
+
 extern FILE* yyin;
 %}
 
-%token INT DOUBLE BOOL STRING VOID  MAIN ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN STRING_LITERAL
-%token IDENTIFIER MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET  CURLYLBRACKET
-%token CLASS NUMBER COMMA NEWARRAY UNARY RETURN BREAK IF ELSE DO WHILE SQUARERBRACKET DOT SQUARELBRACKET
+%union {
+    int num;
+    float fnum;
+    char *str;
+}
+
+%token INT FLOAT BOOL STRING VOID  ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN 
+%token  MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET  CURLYLBRACKET
+%token CLASS COMMA NEWARRAY UNARY RETURN BREAK IF ELSE DO WHILE SQUARERBRACKET DOT SQUARELBRACKET
+
+%token MAIN
+%token<str> IDENTIFIER
+%token<num>NUMBER
+%token<fnum>FNUMBER
+%type <str> type OperatorExp Expression
+%type<str> UnaryExp MultiplicativeExp AdditiveExp RelationalExp EqualityExp AndExp OrExp OperatorExp Operand OptionalExp Lvalue
 %start program
 
 %left DOT SQUARELBRACKET SQUARERBRACKET
@@ -30,18 +47,7 @@ extern FILE* yyin;
 
 %%
 
-program : FuncMain declarations
-        | declarations_plus FuncMain declarations
-        ;
-
-declarations: | declarations declaration ;
-
-declarations_plus: declaration | declarations_plus declaration;
-
-
-
-
-declaration: VarDecl    ;
+program : FuncMain ;
 
 FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock
 	
@@ -56,7 +62,7 @@ VarDecl:
 
 	
 
-type : INT | DOUBLE ;
+type : INT | FLOAT ;
 
 Expression:
 	OperatorExp
@@ -124,7 +130,7 @@ UnaryExp:
        
 Operand: 
     IDENTIFIER
-    | DOUBLE
+    | FLOAT
     | NUMBER
     | ROUNDLBRACKET OperatorExp ROUNDRBRACKET 
     ;
