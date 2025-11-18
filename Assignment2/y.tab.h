@@ -90,7 +90,8 @@ extern int yydebug;
     WHILE = 291,                   /* WHILE  */
     SQUARERBRACKET = 292,          /* SQUARERBRACKET  */
     DOT = 293,                     /* DOT  */
-    SQUARELBRACKET = 294           /* SQUARELBRACKET  */
+    SQUARELBRACKET = 294,          /* SQUARELBRACKET  */
+    IF_WITHOUT_ELSE = 295          /* IF_WITHOUT_ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -136,6 +137,7 @@ extern int yydebug;
 #define SQUARERBRACKET 292
 #define DOT 293
 #define SQUARELBRACKET 294
+#define IF_WITHOUT_ELSE 295
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

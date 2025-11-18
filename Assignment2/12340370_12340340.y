@@ -23,6 +23,11 @@ extern FILE* yyin;
 %left ASSIGNMENT
 
 
+
+%nonassoc IF_WITHOUT_ELSE
+%nonassoc ELSE
+
+
 %%
 
 program : FuncMain declarations
@@ -79,7 +84,11 @@ Expression:
 	|
 	NewExp
 	;
-	
+
+OptionalExp: 
+	Expression
+	|
+	;
 NewExp:
       NEW ROUNDLBRACKET IDENTIFIER ROUNDRBRACKET;
 
@@ -155,24 +164,26 @@ StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET;
 
 Stmts :   Statement Stmts |  VarDecl Stmts | ;
 
-Statement : Expression SEMICOLON |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
+Statement : OptionalExp SEMICOLON |ConditionalStmt | LoopStmt | OtherStmt| StmtBlock;
 
 
-ConditionalStmt : IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement | IF ROUNDLBRACKET Expression ROUNDRBRACKET Statement ELSE Statement;
-
+ConditionalStmt: IF ROUNDLBRACKET OptionalExp ROUNDRBRACKET Statement %prec IF_WITHOUT_ELSE   
+               | IF ROUNDLBRACKET OptionalExp ROUNDRBRACKET Statement ELSE Statement
+               ;
+               
 LoopStmt : WhileStmt | ForStmt | DoWhileStmt;
 
-OtherStmt : ReturnStmt | BreakStmt
+OtherStmt : ReturnStmt | BreakStmt ;
 
-WhileStmt: WHILE ROUNDLBRACKET Expression ROUNDRBRACKET Statement ;
+WhileStmt: WHILE ROUNDLBRACKET OptionalExp ROUNDRBRACKET Statement ;
 
-DoWhileStmt: DO Statement WHILE ROUNDLBRACKET Expression ROUNDRBRACKET SEMICOLON ;
+DoWhileStmt: DO Statement WHILE ROUNDLBRACKET OptionalExp ROUNDRBRACKET SEMICOLON ;
 
-ForStmt: FOR ROUNDLBRACKET Expression SEMICOLON Expression SEMICOLON Expression ROUNDRBRACKET Statement ;
+ForStmt: FOR ROUNDLBRACKET OptionalExp SEMICOLON OptionalExp SEMICOLON OptionalExp ROUNDRBRACKET Statement ;
 
 BreakStmt:BREAK SEMICOLON ;
 
-ReturnStmt : RETURN Expression SEMICOLON | RETURN SEMICOLON;
+ReturnStmt : RETURN OptionalExp SEMICOLON ;
 
 
 %%
@@ -201,7 +212,7 @@ void yyerror(const char *s) {
     printf("Error: %s\n", s);
     printf("Exiting the analysis \n");
     exit(1);
-}
+} 
 
 
 
