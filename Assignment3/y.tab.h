@@ -55,43 +55,54 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     INT = 258,                     /* INT  */
-    DOUBLE = 259,                  /* DOUBLE  */
+    FLOAT = 259,                   /* FLOAT  */
     BOOL = 260,                    /* BOOL  */
     STRING = 261,                  /* STRING  */
     VOID = 262,                    /* VOID  */
-    MAIN = 263,                    /* MAIN  */
-    ROUNDLBRACKET = 264,           /* ROUNDLBRACKET  */
-    ROUNDRBRACKET = 265,           /* ROUNDRBRACKET  */
-    SEMICOLON = 266,               /* SEMICOLON  */
-    FOR = 267,                     /* FOR  */
-    BOOLEAN = 268,                 /* BOOLEAN  */
-    STRING_LITERAL = 269,          /* STRING_LITERAL  */
-    IDENTIFIER = 270,              /* IDENTIFIER  */
-    MULTIPLITIVE = 271,            /* MULTIPLITIVE  */
-    ADDITIVE = 272,                /* ADDITIVE  */
-    RELATIONAL = 273,              /* RELATIONAL  */
-    EQUALITY = 274,                /* EQUALITY  */
-    AND = 275,                     /* AND  */
-    OR = 276,                      /* OR  */
-    ASSIGNMENT = 277,              /* ASSIGNMENT  */
-    NEW = 278,                     /* NEW  */
-    CURLYRBRACKET = 279,           /* CURLYRBRACKET  */
-    CURLYLBRACKET = 280,           /* CURLYLBRACKET  */
-    CLASS = 281,                   /* CLASS  */
-    NUMBER = 282,                  /* NUMBER  */
-    COMMA = 283,                   /* COMMA  */
-    NEWARRAY = 284,                /* NEWARRAY  */
-    UNARY = 285,                   /* UNARY  */
-    RETURN = 286,                  /* RETURN  */
-    BREAK = 287,                   /* BREAK  */
-    IF = 288,                      /* IF  */
-    ELSE = 289,                    /* ELSE  */
-    DO = 290,                      /* DO  */
-    WHILE = 291,                   /* WHILE  */
-    SQUARERBRACKET = 292,          /* SQUARERBRACKET  */
-    DOT = 293,                     /* DOT  */
-    SQUARELBRACKET = 294,          /* SQUARELBRACKET  */
-    IF_WITHOUT_ELSE = 295          /* IF_WITHOUT_ELSE  */
+    ROUNDLBRACKET = 263,           /* ROUNDLBRACKET  */
+    ROUNDRBRACKET = 264,           /* ROUNDRBRACKET  */
+    SEMICOLON = 265,               /* SEMICOLON  */
+    FOR = 266,                     /* FOR  */
+    BOOLEAN = 267,                 /* BOOLEAN  */
+    MULTIPLITIVE = 268,            /* MULTIPLITIVE  */
+    ADDITIVE = 269,                /* ADDITIVE  */
+    RELATIONAL = 270,              /* RELATIONAL  */
+    EQUALITY = 271,                /* EQUALITY  */
+    AND = 272,                     /* AND  */
+    OR = 273,                      /* OR  */
+    ASSIGNMENT = 274,              /* ASSIGNMENT  */
+    NEW = 275,                     /* NEW  */
+    CURLYRBRACKET = 276,           /* CURLYRBRACKET  */
+    CURLYLBRACKET = 277,           /* CURLYLBRACKET  */
+    CLASS = 278,                   /* CLASS  */
+    COMMA = 279,                   /* COMMA  */
+    NEWARRAY = 280,                /* NEWARRAY  */
+    UNARY = 281,                   /* UNARY  */
+    RETURN = 282,                  /* RETURN  */
+    BREAK = 283,                   /* BREAK  */
+    IF = 284,                      /* IF  */
+    ELSE = 285,                    /* ELSE  */
+    DO = 286,                      /* DO  */
+    WHILE = 287,                   /* WHILE  */
+    SQUARERBRACKET = 288,          /* SQUARERBRACKET  */
+    DOT = 289,                     /* DOT  */
+    SQUARELBRACKET = 290,          /* SQUARELBRACKET  */
+    NOT = 291,                     /* NOT  */
+    LT = 292,                      /* LT  */
+    GT = 293,                      /* GT  */
+    LE = 294,                      /* LE  */
+    GE = 295,                      /* GE  */
+    EQ = 296,                      /* EQ  */
+    NE = 297,                      /* NE  */
+    MAIN = 298,                    /* MAIN  */
+    TRUELIT = 299,                 /* TRUELIT  */
+    FALSELIT = 300,                /* FALSELIT  */
+    IDENTIFIER = 301,              /* IDENTIFIER  */
+    NUMBER = 302,                  /* NUMBER  */
+    FNUMBER = 303,                 /* FNUMBER  */
+    UMINUS = 304,                  /* UMINUS  */
+    UNOT = 305,                    /* UNOT  */
+    IF_WITHOUT_ELSE = 306          /* IF_WITHOUT_ELSE  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -101,47 +112,73 @@ extern int yydebug;
 #define YYerror 256
 #define YYUNDEF 257
 #define INT 258
-#define DOUBLE 259
+#define FLOAT 259
 #define BOOL 260
 #define STRING 261
 #define VOID 262
-#define MAIN 263
-#define ROUNDLBRACKET 264
-#define ROUNDRBRACKET 265
-#define SEMICOLON 266
-#define FOR 267
-#define BOOLEAN 268
-#define STRING_LITERAL 269
-#define IDENTIFIER 270
-#define MULTIPLITIVE 271
-#define ADDITIVE 272
-#define RELATIONAL 273
-#define EQUALITY 274
-#define AND 275
-#define OR 276
-#define ASSIGNMENT 277
-#define NEW 278
-#define CURLYRBRACKET 279
-#define CURLYLBRACKET 280
-#define CLASS 281
-#define NUMBER 282
-#define COMMA 283
-#define NEWARRAY 284
-#define UNARY 285
-#define RETURN 286
-#define BREAK 287
-#define IF 288
-#define ELSE 289
-#define DO 290
-#define WHILE 291
-#define SQUARERBRACKET 292
-#define DOT 293
-#define SQUARELBRACKET 294
-#define IF_WITHOUT_ELSE 295
+#define ROUNDLBRACKET 263
+#define ROUNDRBRACKET 264
+#define SEMICOLON 265
+#define FOR 266
+#define BOOLEAN 267
+#define MULTIPLITIVE 268
+#define ADDITIVE 269
+#define RELATIONAL 270
+#define EQUALITY 271
+#define AND 272
+#define OR 273
+#define ASSIGNMENT 274
+#define NEW 275
+#define CURLYRBRACKET 276
+#define CURLYLBRACKET 277
+#define CLASS 278
+#define COMMA 279
+#define NEWARRAY 280
+#define UNARY 281
+#define RETURN 282
+#define BREAK 283
+#define IF 284
+#define ELSE 285
+#define DO 286
+#define WHILE 287
+#define SQUARERBRACKET 288
+#define DOT 289
+#define SQUARELBRACKET 290
+#define NOT 291
+#define LT 292
+#define GT 293
+#define LE 294
+#define GE 295
+#define EQ 296
+#define NE 297
+#define MAIN 298
+#define TRUELIT 299
+#define FALSELIT 300
+#define IDENTIFIER 301
+#define NUMBER 302
+#define FNUMBER 303
+#define UMINUS 304
+#define UNOT 305
+#define IF_WITHOUT_ELSE 306
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 29 "parser.y"
+
+    int num;
+    float fnum;
+    char *str;
+    struct {
+        char* place;
+        char* code;
+    } b;
+
+#line 179 "y.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

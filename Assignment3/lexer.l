@@ -7,33 +7,26 @@ extern int yylineno;
 %%
 "void"           { return VOID; }
 "int"            { return INT; }
-"double"         { return DOUBLE; }
 "bool"           { return BOOL; }
 "string"         { return STRING; }
 "for"            { return FOR; }
 "while"          { return WHILE; }
 "do"             { return DO;}
 "class"          { return CLASS; }
-
+"true"           {return TRUELIT;}
+"false"           {return FALSELIT;}
 "if"             { return IF; }
 "else"           { return ELSE; }
 "return"         { return RETURN; }
-
 "break"          { return BREAK; }
 "New"            { return NEW; }
 "NewArray"       { return NEWARRAY; }
 "main"           { return MAIN; }
 
+[-]?[0-9]+ { yylval.num = atoi(yytext); return NUMBER; }
+[0-9]+"."[0-9]+ { yylval.fnum = atof(yytext); return FNUMBER; }
 
-[0-9]+|0[xX][a-fA-F0-9]+|[0-9]+[.][0-9]+ {return NUMBER;}
-
- 
-
-\.[0-9]+([Ee][-+]?[0-9]+)? {printf("(%s) is not a valid double as there should be a number before the dot\n", yytext);} 
-
-
-
-[a-zA-Z][a-zA-Z0-9_]*      {if(strlen(yytext)<=31) return IDENTIFIER;
+[a-zA-Z][a-zA-Z0-9_]*      {if(strlen(yytext)<=31) {yylval.str = strdup(yytext); return IDENTIFIER;}
     else{
         printf("Too long identifier not permitted more than 31 %s\n",yytext);
     }
@@ -42,12 +35,18 @@ extern int yylineno;
 
 [_][a-zA-Z0-9_]* {printf("(%s) this is not a valid identifier \n", yytext);} 
 
-\"[^\n\"]*\" {return STRING_LITERAL;}
-"!"|"unary -"       {return UNARY;}
-"*"|"/"|"%"         {return MULTIPLITIVE;}
-"+"|"-"             {return ADDITIVE;}
-"<="|">="|"<"|">"   {return RELATIONAL;}
-"=="|"!="           {return EQUALITY;}
+"+" { return '+'; }
+"-" { return '-'; }
+"*" { return '*'; }
+"/" { return '/'; }
+
+"=="                {return EQ;}
+"!"                 {return NOT;}
+"<"                 {return LT;}
+">"                 {return GT;}
+">="                {return GE;}
+"<="                {return LE;}
+"!="                {return NE;}
 "&&"                {return AND;}
 "="                 {return ASSIGNMENT;}
 "||"                {return OR;}
@@ -63,15 +62,11 @@ extern int yylineno;
 "//"[^\n]* {}
 [ \n\t]+ {}
 "/*"([^*]|\*+[^*/])*\*+"/"  { }
-
    
 %%
-
 
 int yywrap(){
     return 1;
 }
-
-
 
 //our assignment made by bhomia and ranjan
