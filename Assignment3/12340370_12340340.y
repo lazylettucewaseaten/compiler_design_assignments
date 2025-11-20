@@ -138,8 +138,7 @@ OptionalExp:
 	ExpressionMain{$$=$1;}
 	
 	;
-//last me karunga
-	
+
 Lvalue:
       IDENTIFIER{
         Symbol* sym=lookupSymbol($1);
@@ -149,15 +148,7 @@ Lvalue:
         }
         $$=$1;
       }
-    //   |
-    //   Expression DOT IDENTIFIER{
 
-    //   }
-    //   |
-    //   Expression SQUARELBRACKET Expression SQUARERBRACKET{
-
-
-    //   } removed for now 
       ;
 AssignExp:
 	Lvalue ASSIGNMENT ExpressionMain{
@@ -233,7 +224,7 @@ OperatorOperand:
         $$=$1;
     }
     |
-    IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET {
+    IDENTIFIER SQUARELBRACKET Expression SQUARERBRACKET {
         Symbol* sym=lookupSymbol($1);
         if(sym==NULL){
              printf("Error: Variable '%s' not declared!\n",$1);

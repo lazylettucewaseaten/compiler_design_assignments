@@ -2,6 +2,9 @@ void main () {
     int i;
     int k,x;
     int  j;
+
+    int arr;
+    j=arr[j+2];
     if(i<j){
     k=k+1;
     }
