@@ -64,7 +64,7 @@ char* new_label(){
 %right UMINUS
 %right UNOT
 %type<str>OperatorExp OperatorOperand OperatorTerm   Expression ExpressionMain type AssignExp BooleanExp OptionalExp Statement
-%type<str>Lvalue  RelationalExp ConditionalStmt LoopStmt StmtBlock WhileStmt idlist idlistarr
+%type<str>Lvalue  RelationalExp ConditionalStmt LoopStmt  WhileStmt idlist  if_pref idlistarr whilestart whilecond
 %nonassoc IF_WITHOUT_ELSE
 %nonassoc ELSE
 
@@ -73,7 +73,7 @@ char* new_label(){
 
 program : FuncMain ;
 
-FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock
+FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET  CURLYLBRACKET Stmts CURLYRBRACKET
 	
 
 VarDecl:
@@ -322,7 +322,6 @@ RelationalExp:
     ;
 
 
-StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET {};
 
 Stmts :   Statement Stmts |  VarDecl Stmts | ;
 
@@ -332,31 +331,32 @@ Statement : OptionalExp SEMICOLON   {
 |
 ConditionalStmt {$$=$1;}
 | LoopStmt  {$$=$1;}
-| StmtBlock {$$=$1;}
 ;
 
+if_pref : IF ROUNDLBRACKET booleanExp ROUNDRBRACKET {
+    char * true_label=new_label();
+    char * false_label=new_label();
 
-ConditionalStmt: IF ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement %prec IF_WITHOUT_ELSE   {
-    char* l1=new_label();
-    printf("if %s goto %s \n",$3.place,l1);
-    char* l2=new_label();
-    printf("goto %s\n",l2);    
-    printf("%s :\n",l1);
-    printf("%s\n",$5);
-    printf("%s : \n",l2);
+    printf("if %s goto %s\n",$3.place,true_label);
+    printf("goto %s\n",false_label);
+    printf("%s : \n",true_label);
+    $$=false_label;
+    
 }
-| IF ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement ELSE Statement    {
-    char* l1=new_label();
-    printf("if %s goto %s \n",$3.place,l1);
-    char* l2=new_label();
-    char* l3=new_label();
-    printf("goto %s\n",l2);    
-    printf("%s :\n",l1);
-    printf("%s\n",$5);
-    printf("goto %s\n",l3);
-    printf("%s : \n",l2);
-    printf("%s\n",$7);
-    printf("%s :\n",l3);
+
+ConditionalStmt: if_pref CURLYLBRACKET Statement CURLYRBRACKET %prec IF_WITHOUT_ELSE     {
+   printf("%s :\n",$1);
+}
+
+| if_pref CURLYLBRACKET Statement CURLYRBRACKET ELSE{
+    char* ifexit=new_label();
+    printf("goto %s :\n",ifexit);
+    printf("%s :\n",$1);
+    $<str>$=ifexit;
+
+} CURLYLBRACKET Statement CURLYRBRACKET {
+    char *ifexit=$<str>6;
+    printf("%s :\n",ifexit);
 }
 ;
                
@@ -365,17 +365,23 @@ LoopStmt : WhileStmt  {
 };
 
 
-WhileStmt: WHILE ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement {
+whilestart : WHILE {
     char* whilebegin=new_label();
-    char* whileend=new_label();
-    char* whilestart=new_label();
+    printf("%s : \n",whilebegin);
+    $$=whilebegin;
+}
+whilecond : ROUNDLBRACKET booleanExp ROUNDRBRACKET {
+    char* condtrue=new_label();
+    char* condfalse=new_label();
+    printf("if %s goto %s\n",$2.place,condtrue);
+    printf("goto %s \n",condfalse);
+    printf("%s :\n",condtrue);
+    $$=condfalse;
+}
 
-    printf("%s\n",whilebegin);
-    printf("if %s goto %s\n",$3.place,whilestart);
-    printf("goto %s\n",whileend);
-    printf("%s : \n",whilestart);
-    printf("goto %s :\n",whilebegin);
-    printf("%s : \n",whileend);
+WhileStmt: whilestart whilecond CURLYLBRACKET Statement CURLYRBRACKET {
+   printf("goto %s\n",$1);
+   printf("%s : \n",$2);
 };
 
 %%

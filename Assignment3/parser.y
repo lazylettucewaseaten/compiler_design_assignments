@@ -36,22 +36,26 @@ char* new_label(){
     } b;
 }
 
-%token INT FLOAT BOOL STRING VOID  ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN 
-%token  MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET  CURLYLBRACKET
+%token INT FLOAT BOOL STRING VOID ROUNDLBRACKET ROUNDRBRACKET SEMICOLON FOR BOOLEAN 
+%token MULTIPLITIVE ADDITIVE RELATIONAL EQUALITY AND OR ASSIGNMENT NEW CURLYRBRACKET CURLYLBRACKET
 %token CLASS COMMA NEWARRAY UNARY RETURN BREAK IF ELSE DO WHILE SQUARERBRACKET DOT SQUARELBRACKET
 %token NOT LT GT LE GE EQ NE
 %token MAIN TRUELIT FALSELIT
 %token<str> IDENTIFIER
 %token<num>NUMBER
 %token<fnum>FNUMBER
-
 %token '+' '-' '*' '/'
+
+/* Declare types for non-terminals */
+%type<b> booleanExp
+%type<str> OperatorExp OperatorOperand OperatorTerm Expression ExpressionMain type AssignExp OptionalExp Statement
+%type<str> Lvalue RelationalExp ConditionalStmt LoopStmt StmtBlock WhileStmt idlist idlistarr BooleanExp
+/* The helper rule must return a string (the label) */
+%type<str> if_part while_start while_cond 
 
 %start program
 
-
 %left DOT SQUARELBRACKET SQUARERBRACKET
-
 %left UNARY
 %left MULTIPLITIVE
 %left ADDITIVE
@@ -60,44 +64,66 @@ char* new_label(){
 %left OR
 %left AND
 %left ASSIGNMENT
-
 %right UMINUS
 %right UNOT
-%type<b> booleanExp
-%type<b> OperatorExp OperatorOperand OperatorTerm Expression ExpressionMain AssignExp BooleanExp OptionalExp Statement
-%type<b> Lvalue RelationalExp ConditionalStmt LoopStmt StmtBlock WhileStmt
-%type<str> type
+
+/* Precedence to fix Dangling Else */
 %nonassoc IF_WITHOUT_ELSE
 %nonassoc ELSE
-
 
 %%
 
 program : FuncMain ;
 
-FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock
-	
+FuncMain : VOID MAIN ROUNDLBRACKET ROUNDRBRACKET StmtBlock ;
+    
 
 VarDecl:
-       type IDENTIFIER SEMICOLON {
-            Symbol* sym=lookupSymbol($2);
-            if(sym!=NULL){
-                printf("Error: Variable '%s' is  already declared!\n",$2);
-                exit(1);
-            }
-            insertSymbol($2,$1,0);
-       }
+       type idlist  SEMICOLON {}
        |
-       IDENTIFIER NEWARRAY ROUNDLBRACKET  NUMBER  COMMA type ROUNDRBRACKET SEMICOLON{
-        Symbol* sym=lookupSymbol($1);
-        if(sym!=NULL){
-            printf("Error: Variable '%s' is  already declared!\n",$1);
-            exit(1);
-        }
-       	insertSymbol($1,$<str>0,0);	
-       }
+       type idlistarr  SEMICOLON{}
        ;
 
+idlist : idlist COMMA IDENTIFIER {
+    Symbol* sym=lookupSymbol($3);
+    if(sym!=NULL){
+        printf("Error: Variable '%s' is already declared!\n",$3);
+        exit(1);
+    }
+    /* $<str>0 refers to the 'type' rule before idlist */
+    insertSymbol($3,$<str>0,0);
+    $$=$3;
+}
+|
+IDENTIFIER{
+    Symbol* sym=lookupSymbol($1);
+    if(sym!=NULL){
+        printf("Error: Variable '%s' is already declared!\n",$1);
+        exit(1);
+    }
+    insertSymbol($1,$<str>0,0);
+    $$=$1;
+};
+
+idlistarr : idlistarr COMMA IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET {
+    Symbol* sym=lookupSymbol($3);
+    if(sym!=NULL){
+        printf("Error: Variable '%s' is already declared!\n",$3);
+        exit(1);
+    }
+    insertSymbol($3,$<str>0,0);
+    $$=$3;
+}
+|
+IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET {
+    Symbol* sym=lookupSymbol($1);
+    if(sym!=NULL){
+        printf("Error: Variable '%s' is already declared!\n",$1);
+        exit(1);
+    }
+    insertSymbol($1,$<str>0,0);
+    $$=$1;
+}
 
 
 type : INT {$$=strdup("int");} | FLOAT {$$=strdup("float");} ;
@@ -106,17 +132,16 @@ ExpressionMain:
     Expression{$$=$1;}
     |
     AssignExp{$$=$1;};
+
 Expression:
     OperatorExp{$$=$1;}
     |
-    BooleanExp{$$=$1;};
+    BooleanExp{$$=$1;}; /* Extract place from struct */
 
 OptionalExp: 
-	ExpressionMain{$$=$1;}
-	
-	;
-//last me karunga
-	
+    ExpressionMain{$$=$1;}
+    ;
+
 Lvalue:
       IDENTIFIER{
         Symbol* sym=lookupSymbol($1);
@@ -124,113 +149,72 @@ Lvalue:
              printf("Error: Variable '%s' not declared!\n",$1);
             exit(1);
         }
-        $$.place = $1;
-        $$.code = strdup("");
+        $$=$1;
       }
-    //   |
-    //   Expression DOT IDENTIFIER{
-
-    //   }
-    //   |
-    //   Expression SQUARELBRACKET Expression SQUARERBRACKET{
-
-
-    //   } removed for now 
       ;
+
 AssignExp:
-	Lvalue ASSIGNMENT ExpressionMain{
-        char line[100];
-        sprintf(line, "%s = %s\n", $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($3.code) + 100);
-        strcpy(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
-        $$.place = $1.place;
+    Lvalue ASSIGNMENT ExpressionMain{
+        printf("%s = %s\n",$1,$3);
+        $$=$1; 
     };
-      
+     
 OperatorExp:
     OperatorExp '+' OperatorTerm{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s + %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s + %s\n",temp,$1,$3);
+        $$=temp;
     }
     |
     OperatorExp '-' OperatorTerm{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s - %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s - %s\n",temp,$1,$3);
+        $$=temp;
     }
     | OperatorTerm{
-        $$ = $1;
+        $$=$1;
     }
     ;
 
 OperatorTerm: 
     OperatorTerm '*' OperatorOperand{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s * %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s * %s\n",temp,$1,$3);
+        $$=temp;
     }
     |
     OperatorTerm '/' OperatorOperand{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s / %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s / %s\n",temp,$1,$3);
+        $$=temp;
     }
-
     |
     OperatorOperand{
-        $$ = $1;
+        $$=$1;
     }
     ;
 
 OperatorOperand:
     ROUNDLBRACKET OperatorExp ROUNDRBRACKET {
-        $$ = $2;
+        $$=$2;
     }
     |
     '-' OperatorOperand %prec UMINUS{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = -%s\n", $$.place, $2.place);
-        char* code_buffer = (char*)malloc(strlen($2.code) + 100);
-        strcpy(code_buffer, $2.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = -%s\n",temp,$2);
+        $$=temp;
     }
     |
     NUMBER {
-        char* num_str = (char*)malloc(20);
-        sprintf(num_str, "%d", $1);
-        $$.place = num_str;
-        $$.code = strdup("");
+        char *temp=(char*)malloc(20);
+        sprintf(temp,"%d",$1);
+        $$=temp;
     }
     |
     FNUMBER {
-        char* fnum_str = (char*)malloc(20);
-        sprintf(fnum_str, "%.2f", $1);
-        $$.place = fnum_str;
-        $$.code = strdup("");
+        char *temp=(char*)malloc(20);
+        sprintf(temp,"%.2f",$1);
+        $$=temp;
     }
     |
     IDENTIFIER{
@@ -239,194 +223,220 @@ OperatorOperand:
              printf("Error: Variable '%s' not declared!\n",$1);
             exit(1);
         }
-        $$.place = $1;
-        $$.code = strdup("");
+        $$=$1;
+    }
+    |
+    IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET {
+        Symbol* sym=lookupSymbol($1);
+        if(sym==NULL){
+             printf("Error: Variable '%s' not declared!\n",$1);
+            exit(1);
+        }
+        $$=$1;
     }
     ;
 
 BooleanExp :
     booleanExp{
-        $$ = $1;
-    };
+        
+    }
+
 booleanExp:
     booleanExp OR booleanExp {
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s || %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s || %s\n",temp,$1.place,$3.place);
+        $$.place=temp;
+        $$.code="";
     }
     |booleanExp AND booleanExp {
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s && %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s && %s\n",temp,$1.place,$3.place);
+        $$.place=temp;
+        $$.code="";
     }
     |NOT booleanExp %prec UNOT{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = !%s\n", $$.place, $2.place);
-        char* code_buffer = (char*)malloc(strlen($2.code) + 100);
-        strcpy(code_buffer, $2.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = !%s\n",temp,$2.place);
+        $$.place=temp;
+        $$.code="";
     }
     |TRUELIT{
-        $$.place = strdup("1");
-        $$.code = strdup("");
+        $$.place=strdup("true");
+        $$.code="";
     }
     |FALSELIT{
-        $$.place = strdup("0");
-        $$.code = strdup("");
+        $$.place=strdup("false");
+        $$.code="";
     }
     | ROUNDLBRACKET booleanExp ROUNDRBRACKET { 
-        $$ = $2;
+        $$=$2;
     }
     | RelationalExp {
-        $$ = $1;
+        $$.place=$1;
+        $$.code="";
     };
 
 RelationalExp:
     OperatorExp LT OperatorExp{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s < %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s < %s\n",temp,$1,$3);
+        $$=temp;
     }   
     |
     OperatorExp GT OperatorExp{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s > %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s > %s\n",temp,$1,$3);
+        $$=temp;
     }
     |
     OperatorExp LE OperatorExp{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s <= %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s <= %s\n",temp,$1,$3);
+        $$=temp;
     }
     |
     OperatorExp GE OperatorExp{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s >= %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s >= %s\n",temp,$1,$3);
+        $$=temp;
     }
     |
     OperatorExp EQ OperatorExp{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s == %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s == %s\n",temp,$1,$3);
+        $$=temp;
     }
     |
     OperatorExp NE OperatorExp{
-        $$.place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s != %s\n", $$.place, $1.place, $3.place);
-        char* code_buffer = (char*)malloc(strlen($1.code) + strlen($3.code) + 100);
-        strcpy(code_buffer, $1.code);
-        strcat(code_buffer, $3.code);
-        strcat(code_buffer, line);
-        $$.code = code_buffer;
+        char *temp=new_temp();
+        printf("%s = %s != %s\n",temp,$1,$3);
+        $$=temp;
     }  
     ;
 
+StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET { $$=""; };
 
-StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET {};
+Stmts : Statement Stmts | VarDecl Stmts | ;
 
-Stmts :   Statement Stmts |  VarDecl Stmts | ;
-
-Statement : OptionalExp SEMICOLON   { 
-    if ($1.code) printf("%s", $1.code);
-    $$ = $1;
-} 
-|
-ConditionalStmt {
-    if ($1.code) printf("%s", $1.code);
-    $$ = $1;
-}
-| LoopStmt  {$$=$1;}
-| StmtBlock {$$=$1;}
+Statement : 
+  OptionalExp SEMICOLON { $$=$1; } 
+| ConditionalStmt { $$=$1; }
+| LoopStmt  { $$=$1; }
+| StmtBlock { $$=$1; }
 ;
 
+/* ----------------------------------------------------------- */
+/* RESOLVED IF/ELSE LOGIC WITH SHARED RULE           */
+/* ----------------------------------------------------------- */
 
-ConditionalStmt: IF ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement %prec IF_WITHOUT_ELSE   {
-    char* l1 = new_label();
-    char* l2 = new_label();
-    char* final_code = (char*)malloc(strlen($3.code) + strlen($5.code) + 200);
-    sprintf(final_code,
-        "%s"          
-        "if_false %s goto %s\n"
-        "%s"          
-        "goto %s\n"
-        "%s:\n"
-        "%s:\n",
-        $3.code, $3.place, l1, $5.code, l2, l1, l2
-    );
-    $$.code = final_code;
-    $$.place = NULL;
-}
-| IF ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement ELSE Statement    {
-    char* l1 = new_label();
-    char* l2 = new_label();
-    char* l3 = new_label();
-    char* final_code = (char*)malloc(strlen($3.code) + strlen($5.code) + strlen($7.code) + 200);
-    sprintf(final_code,
-        "%s"
-        "if_false %s goto %s\n"
-        "%s"
-        "goto %s\n"
-        "%s:\n"
-        "%s"
-        "%s:\n",
-        $3.code, $3.place, l1, $5.code, l2, l1, $7.code, l2
-    );
-    $$.code = final_code;
-    $$.place = NULL;
-}
+/* if_part is a helper rule. It parses "IF ( exp )".
+   It creates the True/False labels and prints the jump logic.
+   It returns the 'false_label' so the parent can use it later.
+*/
+if_part: 
+    IF ROUNDLBRACKET booleanExp ROUNDRBRACKET 
+    {
+        char* l_true = new_label();
+        char* l_false = new_label();
+        
+        printf("if %s goto %s \n", $3.place, l_true);
+        printf("goto %s\n", l_false);
+        printf("%s :\n", l_true);
+        
+        $$ = l_false; /* Return the false label up the tree */
+    }
 ;
-               
-LoopStmt : WhileStmt  {
-    $$=$1;
-};
 
+ConditionalStmt: 
+    /* Case 1: IF without ELSE */
+    if_part Statement %prec IF_WITHOUT_ELSE   
+    {
+        char* l_false = $1; /* Get label from if_part */
+        printf("%s :\n", l_false);
+    }
+    
+    /* Case 2: IF with ELSE */
+    | if_part Statement ELSE 
+    {
+        /* This action runs AFTER the 'if' statement, but BEFORE 'else' statement */
+        char* l_exit = new_label();
+        char* l_false = $1; /* Get label from if_part */
+        
+        printf("goto %s\n", l_exit); /* Jump over the else block */
+        printf("%s :\n", l_false);   /* Start the else block */
+        
+        $<str>$ = l_exit; /* Pass exit label to the end */
+    }
+    Statement    
+    {
+        char* l_exit = $<str>4; /* Retrieve exit label */
+        printf("%s :\n", l_exit);
+    }
+;
 
-WhileStmt: WHILE ROUNDLBRACKET OptionalExp ROUNDRBRACKET Statement {
+/* ----------------------------------------------------------- */
+/* WHILE LOOP LOGIC                      */
+/* ----------------------------------------------------------- */
 
-};
+/* ========================================== */
+/* WHILE LOOP (Clean Helper Rule Version)     */
+/* ========================================== */
+
+LoopStmt : WhileStmt { $$=$1; };
+
+/* Helper Rule 1: while_start
+   - Matches the 'WHILE' keyword.
+   - Creates the label for the top of the loop.
+   - PRINTS: "L_start :"
+   - RETURNS: "L_start" (so we can jump back to it later)
+*/
+while_start: 
+    WHILE 
+    {
+        char* l_start = new_label();
+        printf("%s :\n", l_start);
+        $$ = l_start; 
+    }
+;
+
+/* Helper Rule 2: while_cond
+   - Matches "( booleanExp )"
+   - Creates body and end labels.
+   - PRINTS: "if true goto Body", "goto End", "Body :"
+   - RETURNS: "L_end" (so we can print the exit label later)
+*/
+while_cond:
+    ROUNDLBRACKET booleanExp ROUNDRBRACKET
+    {
+        char* l_body = new_label();
+        char* l_end = new_label();
+        
+        printf("if %s goto %s\n", $2.place, l_body);
+        printf("goto %s\n", l_end);
+        printf("%s :\n", l_body);
+        
+        $$ = l_end;
+    }
+;
+
+/* Main Rule: WhileStmt
+   - Combines everything.
+   - $1 is "L_start" (from while_start)
+   - $2 is "L_end"   (from while_cond)
+   - $3 is Statement
+*/
+WhileStmt: 
+    while_start while_cond Statement 
+    {
+        char* l_start = $1; /* Automatically available from stack */
+        char* l_end   = $2; /* Automatically available from stack */
+        
+        printf("goto %s\n", l_start); /* Loop back to top */
+        printf("%s :\n", l_end);      /* Exit label */
+    }
+;
 
 %%
-
 
 int main(int argc, char **argv) {
     if (argc > 1) {
@@ -439,7 +449,7 @@ int main(int argc, char **argv) {
     }
 
     if (yyparse() == 0) {
-        printf("Parsing Successfull.\n");
+        printf("Parsing Successful.\n");
     } else {
         printf("Parsing failed.\n");
     }
@@ -448,14 +458,7 @@ int main(int argc, char **argv) {
 }
 
 void yyerror(const char *s) {
-    printf("Sematics Error: %s\n", s);
+    printf("Semantics Error: %s\n", s);
     printf("Exiting the analysis \n");
     exit(1);
-} 
-
-
-
-
-
-
-
+}
