@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "parser.y"
+#line 1 "12340370_12340340.y"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -250,7 +250,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 29 "parser.y"
+#line 29 "12340370_12340340.y"
 
     int num;
     float fnum;
@@ -340,24 +340,29 @@ enum yysymbol_kind_t
   YYSYMBOL_program = 57,                   /* program  */
   YYSYMBOL_FuncMain = 58,                  /* FuncMain  */
   YYSYMBOL_VarDecl = 59,                   /* VarDecl  */
-  YYSYMBOL_type = 60,                      /* type  */
-  YYSYMBOL_ExpressionMain = 61,            /* ExpressionMain  */
-  YYSYMBOL_Expression = 62,                /* Expression  */
-  YYSYMBOL_OptionalExp = 63,               /* OptionalExp  */
-  YYSYMBOL_Lvalue = 64,                    /* Lvalue  */
-  YYSYMBOL_AssignExp = 65,                 /* AssignExp  */
-  YYSYMBOL_OperatorExp = 66,               /* OperatorExp  */
-  YYSYMBOL_OperatorTerm = 67,              /* OperatorTerm  */
-  YYSYMBOL_OperatorOperand = 68,           /* OperatorOperand  */
-  YYSYMBOL_BooleanExp = 69,                /* BooleanExp  */
-  YYSYMBOL_booleanExp = 70,                /* booleanExp  */
-  YYSYMBOL_RelationalExp = 71,             /* RelationalExp  */
-  YYSYMBOL_StmtBlock = 72,                 /* StmtBlock  */
-  YYSYMBOL_Stmts = 73,                     /* Stmts  */
-  YYSYMBOL_Statement = 74,                 /* Statement  */
-  YYSYMBOL_ConditionalStmt = 75,           /* ConditionalStmt  */
-  YYSYMBOL_LoopStmt = 76,                  /* LoopStmt  */
-  YYSYMBOL_WhileStmt = 77                  /* WhileStmt  */
+  YYSYMBOL_idlist = 60,                    /* idlist  */
+  YYSYMBOL_idlistarr = 61,                 /* idlistarr  */
+  YYSYMBOL_type = 62,                      /* type  */
+  YYSYMBOL_ExpressionMain = 63,            /* ExpressionMain  */
+  YYSYMBOL_Expression = 64,                /* Expression  */
+  YYSYMBOL_OptionalExp = 65,               /* OptionalExp  */
+  YYSYMBOL_Lvalue = 66,                    /* Lvalue  */
+  YYSYMBOL_AssignExp = 67,                 /* AssignExp  */
+  YYSYMBOL_OperatorExp = 68,               /* OperatorExp  */
+  YYSYMBOL_OperatorTerm = 69,              /* OperatorTerm  */
+  YYSYMBOL_OperatorOperand = 70,           /* OperatorOperand  */
+  YYSYMBOL_BooleanExp = 71,                /* BooleanExp  */
+  YYSYMBOL_booleanExp = 72,                /* booleanExp  */
+  YYSYMBOL_RelationalExp = 73,             /* RelationalExp  */
+  YYSYMBOL_Stmts = 74,                     /* Stmts  */
+  YYSYMBOL_Statement = 75,                 /* Statement  */
+  YYSYMBOL_if_pref = 76,                   /* if_pref  */
+  YYSYMBOL_ConditionalStmt = 77,           /* ConditionalStmt  */
+  YYSYMBOL_78_1 = 78,                      /* @1  */
+  YYSYMBOL_LoopStmt = 79,                  /* LoopStmt  */
+  YYSYMBOL_whilestart = 80,                /* whilestart  */
+  YYSYMBOL_whilecond = 81,                 /* whilecond  */
+  YYSYMBOL_WhileStmt = 82                  /* WhileStmt  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -685,16 +690,16 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   146
+#define YYLAST   151
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  56
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  22
+#define YYNNTS  27
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  51
+#define YYNRULES  58
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  101
+#define YYNSTATES  117
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   306
@@ -748,12 +753,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    76,    76,    78,    82,    91,   103,   103,   106,   108,
-     110,   112,   115,   121,   141,   152,   163,   173,   179,   190,
-     202,   208,   212,   222,   229,   236,   248,   252,   262,   272,
-     281,   285,   289,   292,   297,   308,   319,   330,   341,   352,
-     365,   367,   367,   367,   369,   374,   378,   379,   383,   399,
-     419,   424
+       0,    74,    74,    76,    80,    82,    85,    95,   105,   115,
+     126,   126,   129,   131,   133,   135,   138,   144,   163,   169,
+     175,   180,   186,   192,   199,   205,   209,   215,   221,   227,
+     236,   247,   251,   257,   263,   269,   273,   277,   280,   286,
+     292,   298,   304,   310,   317,   326,   326,   326,   328,   332,
+     333,   336,   347,   351,   351,   363,   368,   373,   382
 };
 #endif
 
@@ -777,11 +782,12 @@ static const char *const yytname[] =
   "WHILE", "SQUARERBRACKET", "DOT", "SQUARELBRACKET", "NOT", "LT", "GT",
   "LE", "GE", "EQ", "NE", "MAIN", "TRUELIT", "FALSELIT", "IDENTIFIER",
   "NUMBER", "FNUMBER", "'+'", "'-'", "'*'", "'/'", "UMINUS", "UNOT",
-  "IF_WITHOUT_ELSE", "$accept", "program", "FuncMain", "VarDecl", "type",
-  "ExpressionMain", "Expression", "OptionalExp", "Lvalue", "AssignExp",
-  "OperatorExp", "OperatorTerm", "OperatorOperand", "BooleanExp",
-  "booleanExp", "RelationalExp", "StmtBlock", "Stmts", "Statement",
-  "ConditionalStmt", "LoopStmt", "WhileStmt", YY_NULLPTR
+  "IF_WITHOUT_ELSE", "$accept", "program", "FuncMain", "VarDecl", "idlist",
+  "idlistarr", "type", "ExpressionMain", "Expression", "OptionalExp",
+  "Lvalue", "AssignExp", "OperatorExp", "OperatorTerm", "OperatorOperand",
+  "BooleanExp", "booleanExp", "RelationalExp", "Stmts", "Statement",
+  "if_pref", "ConditionalStmt", "@1", "LoopStmt", "whilestart",
+  "whilecond", "WhileStmt", YY_NULLPTR
 };
 
 static const char *
@@ -791,12 +797,12 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-74)
+#define YYPACT_NINF (-46)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
 
-#define YYTABLE_NINF (-14)
+#define YYTABLE_NINF (-18)
 
 #define yytable_value_is_error(Yyn) \
   0
@@ -805,17 +811,18 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      26,    -5,    40,   -74,    55,   -74,    56,    42,    54,   -74,
-     -74,   -74,    23,    58,    64,    23,   -74,   -74,     3,   -74,
-     -74,    31,    54,    28,   -74,   -74,    65,    61,   -74,   -29,
-     -25,   -74,   -74,    12,   -74,   -74,    63,    54,   -74,   -74,
-     -74,   -74,    96,    -3,    23,    81,   -29,   -74,    77,    31,
-     -74,   -74,    78,   -74,    81,    31,    31,    31,    31,    31,
-      31,    31,    31,    31,    31,    23,    23,   -74,   -74,   -74,
-     -74,     7,    68,    82,    45,    -8,   -74,   -74,     2,     2,
-       2,     2,     2,     2,   -25,   -25,   -74,   -74,   -74,    76,
-      74,    74,    70,    67,   -74,    32,    74,    86,   -74,    97,
-     -74
+       6,   -37,    17,   -46,    16,   -46,    27,    18,    35,   -46,
+     -46,    62,    36,   -46,    62,   -46,   -46,   -15,   -46,   -46,
+      26,    35,     8,   -46,   -46,    49,    42,   -46,   101,   -40,
+     -46,   -46,     9,   -46,    44,    35,    46,   -46,   -46,    58,
+     -46,    40,    95,     1,    62,   101,   -46,    30,    26,   -46,
+     -46,    43,    -2,    -1,   -46,    78,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    62,    62,   -46,   -46,
+      55,    62,    67,   -46,   -46,    12,    57,    -8,    45,   -46,
+      47,   -46,    48,   -46,   -34,   -34,   -34,   -34,   -34,   -34,
+     -40,   -40,   -46,   -46,   -46,    94,    74,    79,    55,   -46,
+     -46,    80,   -46,    81,    85,   -46,    96,   -46,    71,   -46,
+     -46,    86,    98,   -46,    55,   100,   -46
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -823,33 +830,34 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     2,     0,     1,     0,     0,    43,     3,
-       6,     7,     0,     0,     0,     0,    30,    31,    25,    23,
-      24,     0,    43,     0,    12,     8,     0,     0,     9,    10,
-      17,    20,    11,    26,    33,    47,     0,    43,    45,    46,
-      50,    25,     0,     0,     0,     0,     0,    29,     0,     0,
-      22,    42,     0,    44,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    40,    41,    21,
-      32,     0,    25,     0,     0,     0,     4,    14,    34,    35,
-      36,    37,    38,    39,    15,    16,    18,    19,    28,    27,
-       0,     0,     0,    48,    51,     0,     0,     0,    49,     0,
-       5
+       0,     0,     0,     2,     0,     1,     0,     0,    47,    10,
+      11,     0,     0,    56,     0,    35,    36,    29,    27,    28,
+       0,    47,     0,    16,    12,     0,     0,    13,    14,    21,
+      24,    15,    31,    38,     0,    47,     0,    49,    50,     0,
+      55,    29,     0,     0,     0,     0,    34,     0,     0,    26,
+      46,     7,     0,     0,    48,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     3,    45,
+       0,     0,     0,    25,    37,     0,     0,     0,     0,     4,
+       0,     5,     0,    18,    39,    40,    41,    42,    43,    44,
+      19,    20,    22,    23,    33,    32,     0,     0,     0,    51,
+      30,     0,     6,     0,    52,    57,     0,     9,     0,    53,
+      58,     0,     0,     8,     0,     0,    54
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -74,   -74,   -74,   -74,    13,    57,   -74,    69,   -74,   -74,
-     -12,    -1,   -14,   -74,   -10,   -74,   102,   -18,   -73,   -74,
-     -74,   -74
+     -46,   -46,   -46,   -46,   -46,   -46,   -46,    72,   -46,   -46,
+     -46,   -46,   -11,   -31,   -13,   -46,    -9,   -46,    -7,   -45,
+     -46,   -46,   -46,   -46,   -46,   -46,   -46
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     3,    22,    23,    24,    25,    26,    27,    28,
-      29,    30,    31,    32,    33,    34,    35,    36,    37,    38,
-      39,    40
+       0,     2,     3,    21,    52,    53,    22,    23,    24,    25,
+      26,    27,    28,    29,    30,    31,    32,    33,    34,    35,
+      36,    37,   112,    38,    39,    72,    40
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -857,79 +865,82 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      42,    69,    43,    46,    51,    47,    70,    50,    55,    56,
-      57,    58,    59,    60,    65,    66,    90,    93,    94,    68,
-      61,    62,   -13,    98,    65,    66,    63,    64,    48,    65,
-      66,    12,    46,     1,    71,    10,    11,    75,     4,    49,
-       5,    61,    62,    78,    79,    80,    81,    82,    83,    86,
-      87,    61,    62,    46,    46,    88,    89,    10,    11,    15,
-      84,    85,    12,     6,     8,     7,    44,    16,    17,    41,
-      19,    20,    45,    21,    52,    53,     8,    41,    19,    20,
-      54,    21,    12,    13,    67,    74,    14,   -13,    76,    12,
-      15,    91,    92,    65,    95,    99,     8,    96,    16,    17,
-      18,    19,    20,    13,    21,    69,    14,   100,    97,     9,
-      15,    77,     0,     0,    73,     0,     0,    15,    16,    17,
-      72,    19,    20,     0,    21,    16,    17,    72,    19,    20,
-       0,    21,     0,    55,    56,    57,    58,    59,    60,     0,
-       0,     0,     0,     0,     0,    61,    62
+      42,    73,    43,    45,   -17,    46,     4,    49,    79,    81,
+      74,    64,    65,     1,    50,    62,    63,     5,    66,    67,
+      47,    99,    80,    82,     6,    96,    66,    67,    69,    66,
+      67,    90,    91,    45,    48,    75,     7,    77,     9,    10,
+       8,    62,    63,    11,    44,    84,    85,    86,    87,    88,
+      89,    92,    93,   106,    51,    45,    45,    94,    95,    54,
+      45,    55,    97,    11,    12,    68,    71,    13,    70,   115,
+      11,    14,    41,    18,    19,    47,    20,    76,    78,    15,
+      16,    17,    18,    19,    12,    20,    11,    13,   105,    98,
+     100,    14,   101,   102,   103,   104,    66,    67,    14,    15,
+      16,    17,    18,    19,    73,    20,    15,    16,    41,    18,
+      19,    66,    20,   107,    14,   109,   108,   110,   111,   113,
+     114,   116,    15,    16,    17,    18,    19,    83,    20,     0,
+       0,     0,    56,    57,    58,    59,    60,    61,    56,    57,
+      58,    59,    60,    61,    62,    63,     0,     0,     0,     0,
+      62,    63
 };
 
 static const yytype_int8 yycheck[] =
 {
-      12,     9,    12,    15,    22,    15,     9,    21,    37,    38,
-      39,    40,    41,    42,    17,    18,     9,    90,    91,    37,
-      49,    50,    19,    96,    17,    18,    51,    52,    25,    17,
-      18,     8,    44,     7,    44,     3,     4,    49,    43,     8,
-       0,    49,    50,    55,    56,    57,    58,    59,    60,    63,
-      64,    49,    50,    65,    66,    65,    66,     3,     4,    36,
-      61,    62,     8,     8,    22,     9,     8,    44,    45,    46,
-      47,    48,     8,    50,    46,    10,    22,    46,    47,    48,
-      19,    50,     8,    29,    21,     8,    32,    19,    10,     8,
-      36,     9,    47,    17,    24,     9,    22,    30,    44,    45,
-      46,    47,    48,    29,    50,     9,    32,    10,    95,     7,
-      36,    54,    -1,    -1,    45,    -1,    -1,    36,    44,    45,
-      46,    47,    48,    -1,    50,    44,    45,    46,    47,    48,
-      -1,    50,    -1,    37,    38,    39,    40,    41,    42,    -1,
-      -1,    -1,    -1,    -1,    -1,    49,    50
+      11,     9,    11,    14,    19,    14,    43,    20,    10,    10,
+       9,    51,    52,     7,    21,    49,    50,     0,    17,    18,
+      35,     9,    24,    24,     8,    70,    17,    18,    35,    17,
+      18,    62,    63,    44,     8,    44,     9,    48,     3,     4,
+      22,    49,    50,     8,     8,    56,    57,    58,    59,    60,
+      61,    64,    65,    98,    46,    66,    67,    66,    67,    10,
+      71,    19,    71,     8,    29,    21,     8,    32,    22,   114,
+       8,    36,    46,    47,    48,    35,    50,    47,    35,    44,
+      45,    46,    47,    48,    29,    50,     8,    32,     9,    22,
+      33,    36,    47,    46,    46,    21,    17,    18,    36,    44,
+      45,    46,    47,    48,     9,    50,    44,    45,    46,    47,
+      48,    17,    50,    33,    36,    30,    35,    21,    47,    33,
+      22,    21,    44,    45,    46,    47,    48,    55,    50,    -1,
+      -1,    -1,    37,    38,    39,    40,    41,    42,    37,    38,
+      39,    40,    41,    42,    49,    50,    -1,    -1,    -1,    -1,
+      49,    50
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     7,    57,    58,    43,     0,     8,     9,    22,    72,
-       3,     4,     8,    29,    32,    36,    44,    45,    46,    47,
-      48,    50,    59,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    70,    71,    72,    73,    74,    75,    76,
-      77,    46,    66,    70,     8,     8,    66,    70,    25,     8,
-      68,    73,    46,    10,    19,    37,    38,    39,    40,    41,
-      42,    49,    50,    51,    52,    17,    18,    21,    73,     9,
-       9,    70,    46,    63,     8,    66,    10,    61,    66,    66,
-      66,    66,    66,    66,    67,    67,    68,    68,    70,    70,
-       9,     9,    47,    74,    74,    24,    30,    60,    74,     9,
-      10
+       0,     7,    57,    58,    43,     0,     8,     9,    22,     3,
+       4,     8,    29,    32,    36,    44,    45,    46,    47,    48,
+      50,    59,    62,    63,    64,    65,    66,    67,    68,    69,
+      70,    71,    72,    73,    74,    75,    76,    77,    79,    80,
+      82,    46,    68,    72,     8,    68,    72,    35,     8,    70,
+      74,    46,    60,    61,    10,    19,    37,    38,    39,    40,
+      41,    42,    49,    50,    51,    52,    17,    18,    21,    74,
+      22,     8,    81,     9,     9,    72,    47,    68,    35,    10,
+      24,    10,    24,    63,    68,    68,    68,    68,    68,    68,
+      69,    69,    70,    70,    72,    72,    75,    72,    22,     9,
+      33,    47,    46,    46,    21,     9,    75,    33,    35,    30,
+      21,    47,    78,    33,    22,    75,    21
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
        0,    56,    57,    58,    59,    59,    60,    60,    61,    61,
-      62,    62,    63,    64,    65,    66,    66,    66,    67,    67,
-      67,    68,    68,    68,    68,    68,    69,    70,    70,    70,
-      70,    70,    70,    70,    71,    71,    71,    71,    71,    71,
-      72,    73,    73,    73,    74,    74,    74,    74,    75,    75,
-      76,    77
+      62,    62,    63,    63,    64,    64,    65,    66,    67,    68,
+      68,    68,    69,    69,    69,    70,    70,    70,    70,    70,
+      70,    71,    72,    72,    72,    72,    72,    72,    72,    73,
+      73,    73,    73,    73,    73,    74,    74,    74,    75,    75,
+      75,    76,    77,    78,    77,    79,    80,    81,    82
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     5,     3,     8,     1,     1,     1,     1,
-       1,     1,     1,     1,     3,     3,     3,     1,     3,     3,
-       1,     3,     2,     1,     1,     1,     1,     3,     3,     2,
-       1,     1,     3,     1,     3,     3,     3,     3,     3,     3,
-       3,     2,     2,     0,     2,     1,     1,     1,     5,     7,
-       1,     5
+       0,     2,     1,     7,     3,     3,     3,     1,     6,     4,
+       1,     1,     1,     1,     1,     1,     1,     1,     3,     3,
+       3,     1,     3,     3,     1,     3,     2,     1,     1,     1,
+       4,     1,     3,     3,     2,     1,     1,     3,     1,     3,
+       3,     3,     3,     3,     3,     2,     2,     0,     2,     1,
+       1,     4,     4,     0,     9,     1,     1,     3,     5
 };
 
 
@@ -1392,504 +1403,493 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 4: /* VarDecl: type IDENTIFIER SEMICOLON  */
-#line 82 "parser.y"
+  case 4: /* VarDecl: type idlist SEMICOLON  */
+#line 80 "12340370_12340340.y"
+                              {}
+#line 1410 "y.tab.c"
+    break;
+
+  case 5: /* VarDecl: type idlistarr SEMICOLON  */
+#line 82 "12340370_12340340.y"
+                                {}
+#line 1416 "y.tab.c"
+    break;
+
+  case 6: /* idlist: idlist COMMA IDENTIFIER  */
+#line 85 "12340370_12340340.y"
                                  {
-            Symbol* sym=lookupSymbol((yyvsp[-1].str));
+    Symbol* sym=lookupSymbol((yyvsp[0].str));
             if(sym!=NULL){
-                printf("Error: Variable '%s' is  already declared!\n",(yyvsp[-1].str));
+                printf("Error: Variable '%s' is  already declared!\n",(yyvsp[0].str));
                 exit(1);
             }
-            insertSymbol((yyvsp[-1].str),(yyvsp[-2].str),0);
-       }
-#line 1406 "y.tab.c"
+     insertSymbol((yyvsp[0].str),(yyvsp[-3].str),0);
+        (yyval.str)=(yyvsp[0].str);
+}
+#line 1430 "y.tab.c"
     break;
 
-  case 5: /* VarDecl: IDENTIFIER NEWARRAY ROUNDLBRACKET NUMBER COMMA type ROUNDRBRACKET SEMICOLON  */
-#line 91 "parser.y"
-                                                                                    {
-        Symbol* sym=lookupSymbol((yyvsp[-7].str));
-        if(sym!=NULL){
-            printf("Error: Variable '%s' is  already declared!\n",(yyvsp[-7].str));
-            exit(1);
-        }
-       	insertSymbol((yyvsp[-7].str),(yyvsp[-8].str),0);	
-       }
-#line 1419 "y.tab.c"
+  case 7: /* idlist: IDENTIFIER  */
+#line 95 "12340370_12340340.y"
+          {
+    Symbol* sym=lookupSymbol((yyvsp[0].str));
+            if(sym!=NULL){
+                printf("Error: Variable '%s' is  already declared!\n",(yyvsp[0].str));
+                exit(1);
+            }
+     insertSymbol((yyvsp[0].str),(yyvsp[-1].str),0);
+        (yyval.str)=(yyvsp[0].str);
+}
+#line 1444 "y.tab.c"
     break;
 
-  case 6: /* type: INT  */
-#line 103 "parser.y"
+  case 8: /* idlistarr: idlistarr COMMA IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET  */
+#line 105 "12340370_12340340.y"
+                                                                              {
+    Symbol* sym=lookupSymbol((yyvsp[-3].str));
+            if(sym!=NULL){
+                printf("Error: Variable '%s' is  already declared!\n",(yyvsp[-3].str));
+                exit(1);
+            }
+     insertSymbol((yyvsp[-3].str),(yyvsp[-6].str),0);
+        (yyval.str)=(yyvsp[-3].str);
+}
+#line 1458 "y.tab.c"
+    break;
+
+  case 9: /* idlistarr: IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET  */
+#line 115 "12340370_12340340.y"
+                                                {
+    Symbol* sym=lookupSymbol((yyvsp[-3].str));
+            if(sym!=NULL){
+                printf("Error: Variable '%s' is  already declared!\n",(yyvsp[-3].str));
+                exit(1);
+            }
+     insertSymbol((yyvsp[-3].str),(yyvsp[-4].str),0);
+        (yyval.str)=(yyvsp[-3].str);
+}
+#line 1472 "y.tab.c"
+    break;
+
+  case 10: /* type: INT  */
+#line 126 "12340370_12340340.y"
            {(yyval.str)=strdup("int");}
-#line 1425 "y.tab.c"
+#line 1478 "y.tab.c"
     break;
 
-  case 7: /* type: FLOAT  */
-#line 103 "parser.y"
+  case 11: /* type: FLOAT  */
+#line 126 "12340370_12340340.y"
                                        {(yyval.str)=strdup("float");}
-#line 1431 "y.tab.c"
+#line 1484 "y.tab.c"
     break;
 
-  case 8: /* ExpressionMain: Expression  */
-#line 106 "parser.y"
-              {(yyval.b)=(yyvsp[0].b);}
-#line 1437 "y.tab.c"
+  case 12: /* ExpressionMain: Expression  */
+#line 129 "12340370_12340340.y"
+              {(yyval.str)=(yyvsp[0].str);}
+#line 1490 "y.tab.c"
     break;
 
-  case 9: /* ExpressionMain: AssignExp  */
-#line 108 "parser.y"
-             {(yyval.b)=(yyvsp[0].b);}
-#line 1443 "y.tab.c"
+  case 13: /* ExpressionMain: AssignExp  */
+#line 131 "12340370_12340340.y"
+             {(yyval.str)=(yyvsp[0].str);}
+#line 1496 "y.tab.c"
     break;
 
-  case 10: /* Expression: OperatorExp  */
-#line 110 "parser.y"
-               {(yyval.b)=(yyvsp[0].b);}
-#line 1449 "y.tab.c"
+  case 14: /* Expression: OperatorExp  */
+#line 133 "12340370_12340340.y"
+               {(yyval.str)=(yyvsp[0].str);}
+#line 1502 "y.tab.c"
     break;
 
-  case 11: /* Expression: BooleanExp  */
-#line 112 "parser.y"
-              {(yyval.b)=(yyvsp[0].b);}
-#line 1455 "y.tab.c"
+  case 15: /* Expression: BooleanExp  */
+#line 135 "12340370_12340340.y"
+              {(yyval.str)=(yyvsp[0].str);}
+#line 1508 "y.tab.c"
     break;
 
-  case 12: /* OptionalExp: ExpressionMain  */
-#line 115 "parser.y"
-                      {(yyval.b)=(yyvsp[0].b);}
-#line 1461 "y.tab.c"
+  case 16: /* OptionalExp: ExpressionMain  */
+#line 138 "12340370_12340340.y"
+                      {(yyval.str)=(yyvsp[0].str);}
+#line 1514 "y.tab.c"
     break;
 
-  case 13: /* Lvalue: IDENTIFIER  */
-#line 121 "parser.y"
+  case 17: /* Lvalue: IDENTIFIER  */
+#line 144 "12340370_12340340.y"
                 {
         Symbol* sym=lookupSymbol((yyvsp[0].str));
         if(sym==NULL){
              printf("Error: Variable '%s' not declared!\n",(yyvsp[0].str));
             exit(1);
         }
-        (yyval.b).place = (yyvsp[0].str);
-        (yyval.b).code = strdup("");
+        (yyval.str)=(yyvsp[0].str);
       }
-#line 1475 "y.tab.c"
-    break;
-
-  case 14: /* AssignExp: Lvalue ASSIGNMENT ExpressionMain  */
-#line 141 "parser.y"
-                                        {
-        char line[100];
-        sprintf(line, "%s = %s\n", (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
-        (yyval.b).place = (yyvsp[-2].b).place;
-    }
-#line 1489 "y.tab.c"
-    break;
-
-  case 15: /* OperatorExp: OperatorExp '+' OperatorTerm  */
-#line 152 "parser.y"
-                                {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s + %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
-    }
-#line 1504 "y.tab.c"
-    break;
-
-  case 16: /* OperatorExp: OperatorExp '-' OperatorTerm  */
-#line 163 "parser.y"
-                                {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s - %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
-    }
-#line 1519 "y.tab.c"
-    break;
-
-  case 17: /* OperatorExp: OperatorTerm  */
-#line 173 "parser.y"
-                  {
-        (yyval.b) = (yyvsp[0].b);
-    }
 #line 1527 "y.tab.c"
     break;
 
-  case 18: /* OperatorTerm: OperatorTerm '*' OperatorOperand  */
-#line 179 "parser.y"
+  case 18: /* AssignExp: Lvalue ASSIGNMENT ExpressionMain  */
+#line 163 "12340370_12340340.y"
+                                        {
+        printf("%s=%s\n",(yyvsp[-2].str),(yyvsp[0].str));
+    }
+#line 1535 "y.tab.c"
+    break;
+
+  case 19: /* OperatorExp: OperatorExp '+' OperatorTerm  */
+#line 169 "12340370_12340340.y"
+                                {
+        char *temp=new_temp();
+        printf("%s=%s+%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
+    }
+#line 1545 "y.tab.c"
+    break;
+
+  case 20: /* OperatorExp: OperatorExp '-' OperatorTerm  */
+#line 175 "12340370_12340340.y"
+                                {
+        char *temp=new_temp();
+        printf("%s=%s-%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
+    }
+#line 1555 "y.tab.c"
+    break;
+
+  case 21: /* OperatorExp: OperatorTerm  */
+#line 180 "12340370_12340340.y"
+                  {
+        (yyval.str)=(yyvsp[0].str);
+    }
+#line 1563 "y.tab.c"
+    break;
+
+  case 22: /* OperatorTerm: OperatorTerm '*' OperatorOperand  */
+#line 186 "12340370_12340340.y"
                                     {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s * %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
-    }
-#line 1542 "y.tab.c"
-    break;
-
-  case 19: /* OperatorTerm: OperatorTerm '/' OperatorOperand  */
-#line 190 "parser.y"
-                                    {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s / %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
-    }
-#line 1557 "y.tab.c"
-    break;
-
-  case 20: /* OperatorTerm: OperatorOperand  */
-#line 202 "parser.y"
-                   {
-        (yyval.b) = (yyvsp[0].b);
-    }
-#line 1565 "y.tab.c"
-    break;
-
-  case 21: /* OperatorOperand: ROUNDLBRACKET OperatorExp ROUNDRBRACKET  */
-#line 208 "parser.y"
-                                            {
-        (yyval.b) = (yyvsp[-1].b);
+        char *temp=new_temp();
+        printf("%s=%s*%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
 #line 1573 "y.tab.c"
     break;
 
-  case 22: /* OperatorOperand: '-' OperatorOperand  */
-#line 212 "parser.y"
+  case 23: /* OperatorTerm: OperatorTerm '/' OperatorOperand  */
+#line 192 "12340370_12340340.y"
                                     {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = -%s\n", (yyval.b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s/%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
-#line 1587 "y.tab.c"
+#line 1583 "y.tab.c"
     break;
 
-  case 23: /* OperatorOperand: NUMBER  */
-#line 222 "parser.y"
-           {
-        char* num_str = (char*)malloc(20);
-        sprintf(num_str, "%d", (yyvsp[0].num));
-        (yyval.b).place = num_str;
-        (yyval.b).code = strdup("");
+  case 24: /* OperatorTerm: OperatorOperand  */
+#line 199 "12340370_12340340.y"
+                   {
+        (yyval.str)=(yyvsp[0].str);
     }
-#line 1598 "y.tab.c"
+#line 1591 "y.tab.c"
     break;
 
-  case 24: /* OperatorOperand: FNUMBER  */
-#line 229 "parser.y"
-            {
-        char* fnum_str = (char*)malloc(20);
-        sprintf(fnum_str, "%.2f", (yyvsp[0].fnum));
-        (yyval.b).place = fnum_str;
-        (yyval.b).code = strdup("");
+  case 25: /* OperatorOperand: ROUNDLBRACKET OperatorExp ROUNDRBRACKET  */
+#line 205 "12340370_12340340.y"
+                                            {
+        (yyval.str)=(yyvsp[-1].str);
+    }
+#line 1599 "y.tab.c"
+    break;
+
+  case 26: /* OperatorOperand: '-' OperatorOperand  */
+#line 209 "12340370_12340340.y"
+                                    {
+        char *temp=new_temp();
+        printf("%s=-%s\n",temp,(yyvsp[0].str));
+        (yyval.str)=temp;
     }
 #line 1609 "y.tab.c"
     break;
 
-  case 25: /* OperatorOperand: IDENTIFIER  */
-#line 236 "parser.y"
+  case 27: /* OperatorOperand: NUMBER  */
+#line 215 "12340370_12340340.y"
+           {
+        char *temp=(char*)malloc(20);
+        sprintf(temp,"%d",(yyvsp[0].num));
+        (yyval.str)=temp;
+    }
+#line 1619 "y.tab.c"
+    break;
+
+  case 28: /* OperatorOperand: FNUMBER  */
+#line 221 "12340370_12340340.y"
+            {
+        char *temp=(char*)malloc(20);
+        sprintf(temp,"%.2f",(yyvsp[0].fnum));
+        (yyval.str)=temp;
+    }
+#line 1629 "y.tab.c"
+    break;
+
+  case 29: /* OperatorOperand: IDENTIFIER  */
+#line 227 "12340370_12340340.y"
               {
         Symbol* sym=lookupSymbol((yyvsp[0].str));
         if(sym==NULL){
              printf("Error: Variable '%s' not declared!\n",(yyvsp[0].str));
             exit(1);
         }
-        (yyval.b).place = (yyvsp[0].str);
-        (yyval.b).code = strdup("");
+        (yyval.str)=(yyvsp[0].str);
     }
-#line 1623 "y.tab.c"
+#line 1642 "y.tab.c"
     break;
 
-  case 26: /* BooleanExp: booleanExp  */
-#line 248 "parser.y"
+  case 30: /* OperatorOperand: IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET  */
+#line 236 "12340370_12340340.y"
+                                                    {
+        Symbol* sym=lookupSymbol((yyvsp[-3].str));
+        if(sym==NULL){
+             printf("Error: Variable '%s' not declared!\n",(yyvsp[-3].str));
+            exit(1);
+        }
+        (yyval.str)=(yyvsp[-3].str);
+    }
+#line 1655 "y.tab.c"
+    break;
+
+  case 31: /* BooleanExp: booleanExp  */
+#line 247 "12340370_12340340.y"
               {
-        (yyval.b) = (yyvsp[0].b);
+        
     }
-#line 1631 "y.tab.c"
+#line 1663 "y.tab.c"
     break;
 
-  case 27: /* booleanExp: booleanExp OR booleanExp  */
-#line 252 "parser.y"
+  case 32: /* booleanExp: booleanExp OR booleanExp  */
+#line 251 "12340370_12340340.y"
                              {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s || %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s||%s\n",temp,(yyvsp[-2].b).place,(yyvsp[0].b).place);
+        (yyval.b).place=temp;
+        (yyval.b).code="";
     }
-#line 1646 "y.tab.c"
+#line 1674 "y.tab.c"
     break;
 
-  case 28: /* booleanExp: booleanExp AND booleanExp  */
-#line 262 "parser.y"
+  case 33: /* booleanExp: booleanExp AND booleanExp  */
+#line 257 "12340370_12340340.y"
                                {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s && %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s&&%s\n",temp,(yyvsp[-2].b).place,(yyvsp[0].b).place);
+        (yyval.b).place=temp;
+        (yyval.b).code="";
     }
-#line 1661 "y.tab.c"
+#line 1685 "y.tab.c"
     break;
 
-  case 29: /* booleanExp: NOT booleanExp  */
-#line 272 "parser.y"
+  case 34: /* booleanExp: NOT booleanExp  */
+#line 263 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = !%s\n", (yyval.b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=!%s\n",temp,(yyvsp[0].b).place);
+        (yyval.b).place=temp;
+        (yyval.b).code="";
     }
-#line 1675 "y.tab.c"
+#line 1696 "y.tab.c"
     break;
 
-  case 30: /* booleanExp: TRUELIT  */
-#line 281 "parser.y"
+  case 35: /* booleanExp: TRUELIT  */
+#line 269 "12340370_12340340.y"
             {
-        (yyval.b).place = strdup("1");
-        (yyval.b).code = strdup("");
+        (yyval.b).place=strdup("true");
+        (yyval.b).code="";
     }
-#line 1684 "y.tab.c"
+#line 1705 "y.tab.c"
     break;
 
-  case 31: /* booleanExp: FALSELIT  */
-#line 285 "parser.y"
+  case 36: /* booleanExp: FALSELIT  */
+#line 273 "12340370_12340340.y"
              {
-        (yyval.b).place = strdup("0");
-        (yyval.b).code = strdup("");
+            (yyval.b).place=strdup("false");
+        (yyval.b).code="";
     }
-#line 1693 "y.tab.c"
+#line 1714 "y.tab.c"
     break;
 
-  case 32: /* booleanExp: ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
-#line 289 "parser.y"
+  case 37: /* booleanExp: ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
+#line 277 "12340370_12340340.y"
                                              { 
-        (yyval.b) = (yyvsp[-1].b);
+        (yyval.b)=(yyvsp[-1].b);
     }
-#line 1701 "y.tab.c"
+#line 1722 "y.tab.c"
     break;
 
-  case 33: /* booleanExp: RelationalExp  */
-#line 292 "parser.y"
+  case 38: /* booleanExp: RelationalExp  */
+#line 280 "12340370_12340340.y"
                     {
-        (yyval.b) = (yyvsp[0].b);
+        (yyval.b).place=(yyvsp[0].str);
+        (yyval.b).code="";
     }
-#line 1709 "y.tab.c"
+#line 1731 "y.tab.c"
     break;
 
-  case 34: /* RelationalExp: OperatorExp LT OperatorExp  */
-#line 297 "parser.y"
+  case 39: /* RelationalExp: OperatorExp LT OperatorExp  */
+#line 286 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s < %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s<%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
-#line 1724 "y.tab.c"
+#line 1741 "y.tab.c"
     break;
 
-  case 35: /* RelationalExp: OperatorExp GT OperatorExp  */
-#line 308 "parser.y"
+  case 40: /* RelationalExp: OperatorExp GT OperatorExp  */
+#line 292 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s > %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s>%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
-#line 1739 "y.tab.c"
+#line 1751 "y.tab.c"
     break;
 
-  case 36: /* RelationalExp: OperatorExp LE OperatorExp  */
-#line 319 "parser.y"
+  case 41: /* RelationalExp: OperatorExp LE OperatorExp  */
+#line 298 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s <= %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s<=%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
-#line 1754 "y.tab.c"
+#line 1761 "y.tab.c"
     break;
 
-  case 37: /* RelationalExp: OperatorExp GE OperatorExp  */
-#line 330 "parser.y"
+  case 42: /* RelationalExp: OperatorExp GE OperatorExp  */
+#line 304 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s >= %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s>=%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
-#line 1769 "y.tab.c"
+#line 1771 "y.tab.c"
     break;
 
-  case 38: /* RelationalExp: OperatorExp EQ OperatorExp  */
-#line 341 "parser.y"
+  case 43: /* RelationalExp: OperatorExp EQ OperatorExp  */
+#line 310 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s == %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s==%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
-#line 1784 "y.tab.c"
+#line 1781 "y.tab.c"
     break;
 
-  case 39: /* RelationalExp: OperatorExp NE OperatorExp  */
-#line 352 "parser.y"
+  case 44: /* RelationalExp: OperatorExp NE OperatorExp  */
+#line 317 "12340370_12340340.y"
                               {
-        (yyval.b).place = new_temp();
-        char line[100];
-        sprintf(line, "%s = %s != %s\n", (yyval.b).place, (yyvsp[-2].b).place, (yyvsp[0].b).place);
-        char* code_buffer = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 100);
-        strcpy(code_buffer, (yyvsp[-2].b).code);
-        strcat(code_buffer, (yyvsp[0].b).code);
-        strcat(code_buffer, line);
-        (yyval.b).code = code_buffer;
+        char *temp=new_temp();
+        printf("%s=%s!=%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
+        (yyval.str)=temp;
     }
+#line 1791 "y.tab.c"
+    break;
+
+  case 48: /* Statement: OptionalExp SEMICOLON  */
+#line 328 "12340370_12340340.y"
+                                    { 
+    (yyval.str)=(yyvsp[-1].str);
+}
 #line 1799 "y.tab.c"
     break;
 
-  case 40: /* StmtBlock: CURLYLBRACKET Stmts CURLYRBRACKET  */
-#line 365 "parser.y"
-                                             {}
+  case 49: /* Statement: ConditionalStmt  */
+#line 332 "12340370_12340340.y"
+                {(yyval.str)=(yyvsp[0].str);}
 #line 1805 "y.tab.c"
     break;
 
-  case 44: /* Statement: OptionalExp SEMICOLON  */
-#line 369 "parser.y"
-                                    { 
-    if ((yyvsp[-1].b).code) printf("%s", (yyvsp[-1].b).code);
-    (yyval.b) = (yyvsp[-1].b);
+  case 50: /* Statement: LoopStmt  */
+#line 333 "12340370_12340340.y"
+            {(yyval.str)=(yyvsp[0].str);}
+#line 1811 "y.tab.c"
+    break;
+
+  case 51: /* if_pref: IF ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
+#line 336 "12340370_12340340.y"
+                                                    {
+    char * true_label=new_label();
+    char * false_label=new_label();
+
+    printf("if %s goto %s\n",(yyvsp[-1].b).place,true_label);
+    printf("goto %s\n",false_label);
+    printf("%s : \n",true_label);
+    (yyval.str)=false_label;
+    
 }
-#line 1814 "y.tab.c"
+#line 1826 "y.tab.c"
     break;
 
-  case 45: /* Statement: ConditionalStmt  */
-#line 374 "parser.y"
-                {
-    if ((yyvsp[0].b).code) printf("%s", (yyvsp[0].b).code);
-    (yyval.b) = (yyvsp[0].b);
+  case 52: /* ConditionalStmt: if_pref CURLYLBRACKET Statement CURLYRBRACKET  */
+#line 347 "12340370_12340340.y"
+                                                                                         {
+   printf("%s :\n",(yyvsp[-3].str));
 }
-#line 1823 "y.tab.c"
+#line 1834 "y.tab.c"
     break;
 
-  case 46: /* Statement: LoopStmt  */
-#line 378 "parser.y"
-            {(yyval.b)=(yyvsp[0].b);}
-#line 1829 "y.tab.c"
-    break;
+  case 53: /* @1: %empty  */
+#line 351 "12340370_12340340.y"
+                                                    {
+    char* ifexit=new_label();
+    printf("goto %s :\n",ifexit);
+    printf("%s :\n",(yyvsp[-4].str));
+    (yyval.str)=ifexit;
 
-  case 47: /* Statement: StmtBlock  */
-#line 379 "parser.y"
-            {(yyval.b)=(yyvsp[0].b);}
-#line 1835 "y.tab.c"
-    break;
-
-  case 48: /* ConditionalStmt: IF ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement  */
-#line 383 "parser.y"
-                                                                                             {
-    char* l1 = new_label();
-    char* l2 = new_label();
-    char* final_code = (char*)malloc(strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 200);
-    sprintf(final_code,
-        "%s"          
-        "if_false %s goto %s\n"
-        "%s"          
-        "goto %s\n"
-        "%s:\n"
-        "%s:\n",
-        (yyvsp[-2].b).code, (yyvsp[-2].b).place, l1, (yyvsp[0].b).code, l2, l1, l2
-    );
-    (yyval.b).code = final_code;
-    (yyval.b).place = NULL;
 }
-#line 1856 "y.tab.c"
+#line 1846 "y.tab.c"
     break;
 
-  case 49: /* ConditionalStmt: IF ROUNDLBRACKET booleanExp ROUNDRBRACKET Statement ELSE Statement  */
-#line 399 "parser.y"
-                                                                        {
-    char* l1 = new_label();
-    char* l2 = new_label();
-    char* l3 = new_label();
-    char* final_code = (char*)malloc(strlen((yyvsp[-4].b).code) + strlen((yyvsp[-2].b).code) + strlen((yyvsp[0].b).code) + 200);
-    sprintf(final_code,
-        "%s"
-        "if_false %s goto %s\n"
-        "%s"
-        "goto %s\n"
-        "%s:\n"
-        "%s"
-        "%s:\n",
-        (yyvsp[-4].b).code, (yyvsp[-4].b).place, l1, (yyvsp[-2].b).code, l2, l1, (yyvsp[0].b).code, l2
-    );
-    (yyval.b).code = final_code;
-    (yyval.b).place = NULL;
+  case 54: /* ConditionalStmt: if_pref CURLYLBRACKET Statement CURLYRBRACKET ELSE @1 CURLYLBRACKET Statement CURLYRBRACKET  */
+#line 357 "12340370_12340340.y"
+                                        {
+    char *ifexit=(yyvsp[-3].str);
+    printf("%s :\n",ifexit);
 }
-#line 1879 "y.tab.c"
+#line 1855 "y.tab.c"
     break;
 
-  case 50: /* LoopStmt: WhileStmt  */
-#line 419 "parser.y"
+  case 55: /* LoopStmt: WhileStmt  */
+#line 363 "12340370_12340340.y"
                       {
-    (yyval.b)=(yyvsp[0].b);
+    (yyval.str)=(yyvsp[0].str);
 }
-#line 1887 "y.tab.c"
+#line 1863 "y.tab.c"
     break;
 
-  case 51: /* WhileStmt: WHILE ROUNDLBRACKET OptionalExp ROUNDRBRACKET Statement  */
-#line 424 "parser.y"
-                                                                   {
+  case 56: /* whilestart: WHILE  */
+#line 368 "12340370_12340340.y"
+                   {
+    char* whilebegin=new_label();
+    printf("%s : \n",whilebegin);
+    (yyval.str)=whilebegin;
+}
+#line 1873 "y.tab.c"
+    break;
 
+  case 57: /* whilecond: ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
+#line 373 "12340370_12340340.y"
+                                                   {
+    char* condtrue=new_label();
+    char* condfalse=new_label();
+    printf("if %s goto %s\n",(yyvsp[-1].b).place,condtrue);
+    printf("goto %s \n",condfalse);
+    printf("%s :\n",condtrue);
+    (yyval.str)=condfalse;
+}
+#line 1886 "y.tab.c"
+    break;
+
+  case 58: /* WhileStmt: whilestart whilecond CURLYLBRACKET Statement CURLYRBRACKET  */
+#line 382 "12340370_12340340.y"
+                                                                      {
+   printf("goto %s\n",(yyvsp[-4].str));
+   printf("%s : \n",(yyvsp[-3].str));
 }
 #line 1895 "y.tab.c"
     break;
@@ -2088,7 +2088,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 428 "parser.y"
+#line 387 "12340370_12340340.y"
 
 
 
