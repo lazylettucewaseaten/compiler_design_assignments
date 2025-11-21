@@ -13,7 +13,8 @@ extern int yylineno;
 "while"          { return WHILE; }
 "do"             { return DO;}
 "class"          { return CLASS; }
-"true"           {return TRUELIT;}
+"float"             {return FLOAT;}
+    "true"           {return TRUELIT;}
 "false"           {return FALSELIT;}
 "if"             { return IF; }
 "else"           { return ELSE; }

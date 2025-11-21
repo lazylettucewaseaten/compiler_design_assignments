@@ -2,9 +2,11 @@ void main () {
     int i;
     int k,x;
     int  j;
+    float u,v;
 
-    int arr;
+    int arr[1345];
     j=arr[j+2];
+    int arraac[x];
     if(i<j){
     k=k+1;
     }
@@ -16,8 +18,13 @@ void main () {
     else{
     x=x+1;
     }
-
+//definitely a comment
     while(k<j){
     x=x+1;
     }
+
+    while(arr[6] + k  > arr[3]+x){
+        x=x+1;
+    }
 }
+

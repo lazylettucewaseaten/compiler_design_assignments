@@ -53,18 +53,18 @@ char* new_label(){
 %left DOT SQUARELBRACKET SQUARERBRACKET
 
 %left UNARY
-%left MULTIPLITIVE
-%left ADDITIVE
-%left RELATIONAL
-%left EQUALITY
-%left OR
-%left AND
-%left ASSIGNMENT
 
+%right ASSIGNMENT      
+%left OR               
+%left AND              
+%left EQUALITY         
+%left RELATIONAL       
+%left '+' '-'          
+%left '*' '/'          
 %right UMINUS
 %right UNOT
 %type<str>OperatorExp OperatorOperand OperatorTerm   Expression ExpressionMain type AssignExp BooleanExp OptionalExp Statement
-%type<str>Lvalue  RelationalExp ConditionalStmt LoopStmt  WhileStmt idlist  if_pref idlistarr whilestart whilecond
+%type<str>Lvalue  RelationalExp ConditionalStmt LoopStmt  WhileStmt idlist  if_pref idlistarr whilestart whilecond 
 %nonassoc IF_WITHOUT_ELSE
 %nonassoc ELSE
 
@@ -102,25 +102,30 @@ IDENTIFIER{
         $$=$1;
 };
 
-idlistarr : idlistarr COMMA IDENTIFIER SQUARELBRACKET   NUMBER SQUARERBRACKET {
+idlistarr : idlistarr COMMA IDENTIFIER SQUARELBRACKET   Expression SQUARERBRACKET {
     Symbol* sym=lookupSymbol($3);
             if(sym!=NULL){
                 printf("Error: Variable '%s' is  already declared!\n",$3);
                 exit(1);
             }
-     insertSymbol($3,$<str>0,0);
+char temp[1024];
+sprintf(temp, "array(%s)", $<str>0); 
+     insertSymbol($3,temp,0);
         $$=$3;
 }
 |
-IDENTIFIER SQUARELBRACKET NUMBER SQUARERBRACKET {
+IDENTIFIER SQUARELBRACKET Expression SQUARERBRACKET {
     Symbol* sym=lookupSymbol($1);
             if(sym!=NULL){
                 printf("Error: Variable '%s' is  already declared!\n",$1);
                 exit(1);
             }
-     insertSymbol($1,$<str>0,0);
+char temp[1024];
+sprintf(temp, "array(%s)", $<str>0); 
+     insertSymbol($1,temp,0);
         $$=$1;
 }
+
 
 
 type : INT {$$=strdup("int");} | FLOAT {$$=strdup("float");} ;

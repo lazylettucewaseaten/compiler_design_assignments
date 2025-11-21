@@ -17,6 +17,8 @@ We used the symbol table to insert the identifiers we have seen or morevoer to c
 The contents of the array we have used can be accessed by the exression , as the expression can ether evaluate to another array content , or a boolean 0 or 1 , or the expression which evalutes to the number
 Earlier extern int was used for debugging.
 
+we Have specified  a Specific type for the array which when stored in the symbol table ,it is stored as array(int) format.
+
 Compilation:
 lex 12340370_12340340.l
 yacc -d 12340370_12340340.y
