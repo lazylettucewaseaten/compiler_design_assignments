@@ -1,0 +1,15 @@
+int a;
+int b;
+switch (a<b){
+    case 5 : a=a+1;
+    case 6 : a=a+4;
+    case 7 : b=1;
+    default : a=7;
+}
+
+switch (a>=b && b<a){
+    case 52 : a=a+12;
+    case 16 : a=a+423;
+    case 73 : b=1;
+    default : a=34;
+}
