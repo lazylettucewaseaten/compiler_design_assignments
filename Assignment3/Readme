@@ -16,7 +16,7 @@ During coding, we encountered some shift/reduce conflicts which was later resolv
 We used the symbol table to insert the identifiers we have seen or morevoer to check wheter they were declared before use or not, we also ensured there is if an dif else statment with proper TAC in outuput, also there is while loop in the code which generates the proper TAC, the input format for the while and if are like that of the C files.
 The contents of the array we have used can be accessed by the exression , as the expression can ether evaluate to another array content , or a boolean 0 or 1 , or the expression which evalutes to the number
 Earlier extern int was used for debugging.
-
+we made sure the error is printed with the error message aand correspoindng line int he input.txt , 
 we Have specified  a Specific type for the array which when stored in the symbol table ,it is stored as array(int) format.
 
 Compilation:
@@ -39,6 +39,7 @@ Files :
 [10.] symbol.h                    - headers file are inside this for the symbol
 [11.] symbol.c                    - functinoss for the symbol table are inside this file
 [9.] input.txt                    - sample input for checking
+[12.] wrong_input.txt             - wrong input file for showing error
 
 
 Refrences: 

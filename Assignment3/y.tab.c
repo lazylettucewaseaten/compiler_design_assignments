@@ -77,6 +77,7 @@
 extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
+extern int yylineno;
 void yyerror(const char *s);
 
 int temp_count=0;
@@ -95,7 +96,7 @@ char* new_label(){
 }
 
 
-#line 99 "y.tab.c"
+#line 100 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -118,10 +119,7 @@ char* new_label(){
 #  endif
 # endif
 
-/* Use api.header.include to #include this header
-   instead of duplicating it here.  */
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -250,7 +248,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 29 "12340370_12340340.y"
+#line 30 "12340370_12340340.y"
 
     int num;
     float fnum;
@@ -260,7 +258,7 @@ union YYSTYPE
         char* code;
     } b;
 
-#line 264 "y.tab.c"
+#line 262 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -275,7 +273,7 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -753,12 +751,12 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    74,    74,    76,    80,    82,    85,    95,   105,   117,
-     131,   131,   134,   136,   138,   140,   143,   148,   159,   165,
-     171,   176,   182,   188,   195,   201,   205,   211,   217,   223,
-     232,   243,   247,   253,   259,   265,   269,   273,   276,   282,
-     288,   294,   300,   306,   313,   322,   322,   322,   324,   328,
-     329,   332,   343,   347,   347,   359,   364,   369,   378
+       0,    75,    75,    77,    81,    83,    86,    96,   106,   118,
+     132,   132,   135,   137,   139,   141,   144,   149,   160,   166,
+     172,   177,   183,   189,   196,   202,   206,   212,   218,   224,
+     233,   244,   248,   254,   260,   266,   270,   274,   277,   283,
+     289,   295,   301,   307,   314,   323,   323,   323,   325,   329,
+     330,   333,   344,   348,   348,   360,   365,   370,   379
 };
 #endif
 
@@ -1404,19 +1402,19 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* VarDecl: type idlist SEMICOLON  */
-#line 80 "12340370_12340340.y"
+#line 81 "12340370_12340340.y"
                               {}
-#line 1410 "y.tab.c"
+#line 1408 "y.tab.c"
     break;
 
   case 5: /* VarDecl: type idlistarr SEMICOLON  */
-#line 82 "12340370_12340340.y"
+#line 83 "12340370_12340340.y"
                                 {}
-#line 1416 "y.tab.c"
+#line 1414 "y.tab.c"
     break;
 
   case 6: /* idlist: idlist COMMA IDENTIFIER  */
-#line 85 "12340370_12340340.y"
+#line 86 "12340370_12340340.y"
                                  {
     Symbol* sym=lookupSymbol((yyvsp[0].str));
             if(sym!=NULL){
@@ -1426,11 +1424,11 @@ yyreduce:
      insertSymbol((yyvsp[0].str),(yyvsp[-3].str),0);
         (yyval.str)=(yyvsp[0].str);
 }
-#line 1430 "y.tab.c"
+#line 1428 "y.tab.c"
     break;
 
   case 7: /* idlist: IDENTIFIER  */
-#line 95 "12340370_12340340.y"
+#line 96 "12340370_12340340.y"
           {
     Symbol* sym=lookupSymbol((yyvsp[0].str));
             if(sym!=NULL){
@@ -1440,11 +1438,11 @@ yyreduce:
      insertSymbol((yyvsp[0].str),(yyvsp[-1].str),0);
         (yyval.str)=(yyvsp[0].str);
 }
-#line 1444 "y.tab.c"
+#line 1442 "y.tab.c"
     break;
 
   case 8: /* idlistarr: idlistarr COMMA IDENTIFIER SQUARELBRACKET Expression SQUARERBRACKET  */
-#line 105 "12340370_12340340.y"
+#line 106 "12340370_12340340.y"
                                                                                   {
     Symbol* sym=lookupSymbol((yyvsp[-3].str));
             if(sym!=NULL){
@@ -1456,11 +1454,11 @@ sprintf(temp, "array(%s)", (yyvsp[-6].str));
      insertSymbol((yyvsp[-3].str),temp,0);
         (yyval.str)=(yyvsp[-3].str);
 }
-#line 1460 "y.tab.c"
+#line 1458 "y.tab.c"
     break;
 
   case 9: /* idlistarr: IDENTIFIER SQUARELBRACKET Expression SQUARERBRACKET  */
-#line 117 "12340370_12340340.y"
+#line 118 "12340370_12340340.y"
                                                     {
     Symbol* sym=lookupSymbol((yyvsp[-3].str));
             if(sym!=NULL){
@@ -1472,53 +1470,53 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
      insertSymbol((yyvsp[-3].str),temp,0);
         (yyval.str)=(yyvsp[-3].str);
 }
-#line 1476 "y.tab.c"
+#line 1474 "y.tab.c"
     break;
 
   case 10: /* type: INT  */
-#line 131 "12340370_12340340.y"
+#line 132 "12340370_12340340.y"
            {(yyval.str)=strdup("int");}
-#line 1482 "y.tab.c"
+#line 1480 "y.tab.c"
     break;
 
   case 11: /* type: FLOAT  */
-#line 131 "12340370_12340340.y"
+#line 132 "12340370_12340340.y"
                                        {(yyval.str)=strdup("float");}
-#line 1488 "y.tab.c"
+#line 1486 "y.tab.c"
     break;
 
   case 12: /* ExpressionMain: Expression  */
-#line 134 "12340370_12340340.y"
+#line 135 "12340370_12340340.y"
               {(yyval.str)=(yyvsp[0].str);}
-#line 1494 "y.tab.c"
+#line 1492 "y.tab.c"
     break;
 
   case 13: /* ExpressionMain: AssignExp  */
-#line 136 "12340370_12340340.y"
+#line 137 "12340370_12340340.y"
              {(yyval.str)=(yyvsp[0].str);}
-#line 1500 "y.tab.c"
+#line 1498 "y.tab.c"
     break;
 
   case 14: /* Expression: OperatorExp  */
-#line 138 "12340370_12340340.y"
+#line 139 "12340370_12340340.y"
                {(yyval.str)=(yyvsp[0].str);}
-#line 1506 "y.tab.c"
+#line 1504 "y.tab.c"
     break;
 
   case 15: /* Expression: BooleanExp  */
-#line 140 "12340370_12340340.y"
+#line 141 "12340370_12340340.y"
               {(yyval.str)=(yyvsp[0].str);}
-#line 1512 "y.tab.c"
+#line 1510 "y.tab.c"
     break;
 
   case 16: /* OptionalExp: ExpressionMain  */
-#line 143 "12340370_12340340.y"
+#line 144 "12340370_12340340.y"
                       {(yyval.str)=(yyvsp[0].str);}
-#line 1518 "y.tab.c"
+#line 1516 "y.tab.c"
     break;
 
   case 17: /* Lvalue: IDENTIFIER  */
-#line 148 "12340370_12340340.y"
+#line 149 "12340370_12340340.y"
                 {
         Symbol* sym=lookupSymbol((yyvsp[0].str));
         if(sym==NULL){
@@ -1527,113 +1525,113 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
         }
         (yyval.str)=(yyvsp[0].str);
       }
-#line 1531 "y.tab.c"
+#line 1529 "y.tab.c"
     break;
 
   case 18: /* AssignExp: Lvalue ASSIGNMENT ExpressionMain  */
-#line 159 "12340370_12340340.y"
+#line 160 "12340370_12340340.y"
                                         {
         printf("%s=%s\n",(yyvsp[-2].str),(yyvsp[0].str));
     }
-#line 1539 "y.tab.c"
+#line 1537 "y.tab.c"
     break;
 
   case 19: /* OperatorExp: OperatorExp '+' OperatorTerm  */
-#line 165 "12340370_12340340.y"
+#line 166 "12340370_12340340.y"
                                 {
         char *temp=new_temp();
         printf("%s=%s+%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1549 "y.tab.c"
+#line 1547 "y.tab.c"
     break;
 
   case 20: /* OperatorExp: OperatorExp '-' OperatorTerm  */
-#line 171 "12340370_12340340.y"
+#line 172 "12340370_12340340.y"
                                 {
         char *temp=new_temp();
         printf("%s=%s-%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1559 "y.tab.c"
+#line 1557 "y.tab.c"
     break;
 
   case 21: /* OperatorExp: OperatorTerm  */
-#line 176 "12340370_12340340.y"
+#line 177 "12340370_12340340.y"
                   {
         (yyval.str)=(yyvsp[0].str);
     }
-#line 1567 "y.tab.c"
+#line 1565 "y.tab.c"
     break;
 
   case 22: /* OperatorTerm: OperatorTerm '*' OperatorOperand  */
-#line 182 "12340370_12340340.y"
+#line 183 "12340370_12340340.y"
                                     {
         char *temp=new_temp();
         printf("%s=%s*%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1577 "y.tab.c"
+#line 1575 "y.tab.c"
     break;
 
   case 23: /* OperatorTerm: OperatorTerm '/' OperatorOperand  */
-#line 188 "12340370_12340340.y"
+#line 189 "12340370_12340340.y"
                                     {
         char *temp=new_temp();
         printf("%s=%s/%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1587 "y.tab.c"
+#line 1585 "y.tab.c"
     break;
 
   case 24: /* OperatorTerm: OperatorOperand  */
-#line 195 "12340370_12340340.y"
+#line 196 "12340370_12340340.y"
                    {
         (yyval.str)=(yyvsp[0].str);
     }
-#line 1595 "y.tab.c"
+#line 1593 "y.tab.c"
     break;
 
   case 25: /* OperatorOperand: ROUNDLBRACKET OperatorExp ROUNDRBRACKET  */
-#line 201 "12340370_12340340.y"
+#line 202 "12340370_12340340.y"
                                             {
         (yyval.str)=(yyvsp[-1].str);
     }
-#line 1603 "y.tab.c"
+#line 1601 "y.tab.c"
     break;
 
   case 26: /* OperatorOperand: '-' OperatorOperand  */
-#line 205 "12340370_12340340.y"
+#line 206 "12340370_12340340.y"
                                     {
         char *temp=new_temp();
         printf("%s=-%s\n",temp,(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1613 "y.tab.c"
+#line 1611 "y.tab.c"
     break;
 
   case 27: /* OperatorOperand: NUMBER  */
-#line 211 "12340370_12340340.y"
+#line 212 "12340370_12340340.y"
            {
         char *temp=(char*)malloc(20);
         sprintf(temp,"%d",(yyvsp[0].num));
         (yyval.str)=temp;
     }
-#line 1623 "y.tab.c"
+#line 1621 "y.tab.c"
     break;
 
   case 28: /* OperatorOperand: FNUMBER  */
-#line 217 "12340370_12340340.y"
+#line 218 "12340370_12340340.y"
             {
         char *temp=(char*)malloc(20);
         sprintf(temp,"%.2f",(yyvsp[0].fnum));
         (yyval.str)=temp;
     }
-#line 1633 "y.tab.c"
+#line 1631 "y.tab.c"
     break;
 
   case 29: /* OperatorOperand: IDENTIFIER  */
-#line 223 "12340370_12340340.y"
+#line 224 "12340370_12340340.y"
               {
         Symbol* sym=lookupSymbol((yyvsp[0].str));
         if(sym==NULL){
@@ -1642,11 +1640,11 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
         }
         (yyval.str)=(yyvsp[0].str);
     }
-#line 1646 "y.tab.c"
+#line 1644 "y.tab.c"
     break;
 
   case 30: /* OperatorOperand: IDENTIFIER SQUARELBRACKET Expression SQUARERBRACKET  */
-#line 232 "12340370_12340340.y"
+#line 233 "12340370_12340340.y"
                                                         {
         Symbol* sym=lookupSymbol((yyvsp[-3].str));
         if(sym==NULL){
@@ -1655,167 +1653,167 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
         }
         (yyval.str)=(yyvsp[-3].str);
     }
-#line 1659 "y.tab.c"
+#line 1657 "y.tab.c"
     break;
 
   case 31: /* BooleanExp: booleanExp  */
-#line 243 "12340370_12340340.y"
+#line 244 "12340370_12340340.y"
               {
         
     }
-#line 1667 "y.tab.c"
+#line 1665 "y.tab.c"
     break;
 
   case 32: /* booleanExp: booleanExp OR booleanExp  */
-#line 247 "12340370_12340340.y"
+#line 248 "12340370_12340340.y"
                              {
         char *temp=new_temp();
         printf("%s=%s||%s\n",temp,(yyvsp[-2].b).place,(yyvsp[0].b).place);
         (yyval.b).place=temp;
         (yyval.b).code="";
     }
-#line 1678 "y.tab.c"
+#line 1676 "y.tab.c"
     break;
 
   case 33: /* booleanExp: booleanExp AND booleanExp  */
-#line 253 "12340370_12340340.y"
+#line 254 "12340370_12340340.y"
                                {
         char *temp=new_temp();
         printf("%s=%s&&%s\n",temp,(yyvsp[-2].b).place,(yyvsp[0].b).place);
         (yyval.b).place=temp;
         (yyval.b).code="";
     }
-#line 1689 "y.tab.c"
+#line 1687 "y.tab.c"
     break;
 
   case 34: /* booleanExp: NOT booleanExp  */
-#line 259 "12340370_12340340.y"
+#line 260 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=!%s\n",temp,(yyvsp[0].b).place);
         (yyval.b).place=temp;
         (yyval.b).code="";
     }
-#line 1700 "y.tab.c"
+#line 1698 "y.tab.c"
     break;
 
   case 35: /* booleanExp: TRUELIT  */
-#line 265 "12340370_12340340.y"
+#line 266 "12340370_12340340.y"
             {
         (yyval.b).place=strdup("true");
         (yyval.b).code="";
     }
-#line 1709 "y.tab.c"
+#line 1707 "y.tab.c"
     break;
 
   case 36: /* booleanExp: FALSELIT  */
-#line 269 "12340370_12340340.y"
+#line 270 "12340370_12340340.y"
              {
             (yyval.b).place=strdup("false");
         (yyval.b).code="";
     }
-#line 1718 "y.tab.c"
+#line 1716 "y.tab.c"
     break;
 
   case 37: /* booleanExp: ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
-#line 273 "12340370_12340340.y"
+#line 274 "12340370_12340340.y"
                                              { 
         (yyval.b)=(yyvsp[-1].b);
     }
-#line 1726 "y.tab.c"
+#line 1724 "y.tab.c"
     break;
 
   case 38: /* booleanExp: RelationalExp  */
-#line 276 "12340370_12340340.y"
+#line 277 "12340370_12340340.y"
                     {
         (yyval.b).place=(yyvsp[0].str);
         (yyval.b).code="";
     }
-#line 1735 "y.tab.c"
+#line 1733 "y.tab.c"
     break;
 
   case 39: /* RelationalExp: OperatorExp LT OperatorExp  */
-#line 282 "12340370_12340340.y"
+#line 283 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=%s<%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1745 "y.tab.c"
+#line 1743 "y.tab.c"
     break;
 
   case 40: /* RelationalExp: OperatorExp GT OperatorExp  */
-#line 288 "12340370_12340340.y"
+#line 289 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=%s>%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1755 "y.tab.c"
+#line 1753 "y.tab.c"
     break;
 
   case 41: /* RelationalExp: OperatorExp LE OperatorExp  */
-#line 294 "12340370_12340340.y"
+#line 295 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=%s<=%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1765 "y.tab.c"
+#line 1763 "y.tab.c"
     break;
 
   case 42: /* RelationalExp: OperatorExp GE OperatorExp  */
-#line 300 "12340370_12340340.y"
+#line 301 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=%s>=%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1775 "y.tab.c"
+#line 1773 "y.tab.c"
     break;
 
   case 43: /* RelationalExp: OperatorExp EQ OperatorExp  */
-#line 306 "12340370_12340340.y"
+#line 307 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=%s==%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1785 "y.tab.c"
+#line 1783 "y.tab.c"
     break;
 
   case 44: /* RelationalExp: OperatorExp NE OperatorExp  */
-#line 313 "12340370_12340340.y"
+#line 314 "12340370_12340340.y"
                               {
         char *temp=new_temp();
         printf("%s=%s!=%s\n",temp,(yyvsp[-2].str),(yyvsp[0].str));
         (yyval.str)=temp;
     }
-#line 1795 "y.tab.c"
+#line 1793 "y.tab.c"
     break;
 
   case 48: /* Statement: OptionalExp SEMICOLON  */
-#line 324 "12340370_12340340.y"
+#line 325 "12340370_12340340.y"
                                     { 
     (yyval.str)=(yyvsp[-1].str);
 }
-#line 1803 "y.tab.c"
+#line 1801 "y.tab.c"
     break;
 
   case 49: /* Statement: ConditionalStmt  */
-#line 328 "12340370_12340340.y"
+#line 329 "12340370_12340340.y"
                 {(yyval.str)=(yyvsp[0].str);}
-#line 1809 "y.tab.c"
+#line 1807 "y.tab.c"
     break;
 
   case 50: /* Statement: LoopStmt  */
-#line 329 "12340370_12340340.y"
+#line 330 "12340370_12340340.y"
             {(yyval.str)=(yyvsp[0].str);}
-#line 1815 "y.tab.c"
+#line 1813 "y.tab.c"
     break;
 
   case 51: /* if_pref: IF ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
-#line 332 "12340370_12340340.y"
+#line 333 "12340370_12340340.y"
                                                     {
     char * true_label=new_label();
     char * false_label=new_label();
@@ -1826,19 +1824,19 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
     (yyval.str)=false_label;
     
 }
-#line 1830 "y.tab.c"
+#line 1828 "y.tab.c"
     break;
 
   case 52: /* ConditionalStmt: if_pref CURLYLBRACKET Statement CURLYRBRACKET  */
-#line 343 "12340370_12340340.y"
+#line 344 "12340370_12340340.y"
                                                                                          {
    printf("%s :\n",(yyvsp[-3].str));
 }
-#line 1838 "y.tab.c"
+#line 1836 "y.tab.c"
     break;
 
   case 53: /* @1: %empty  */
-#line 347 "12340370_12340340.y"
+#line 348 "12340370_12340340.y"
                                                     {
     char* ifexit=new_label();
     printf("goto %s :\n",ifexit);
@@ -1846,38 +1844,38 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
     (yyval.str)=ifexit;
 
 }
-#line 1850 "y.tab.c"
+#line 1848 "y.tab.c"
     break;
 
   case 54: /* ConditionalStmt: if_pref CURLYLBRACKET Statement CURLYRBRACKET ELSE @1 CURLYLBRACKET Statement CURLYRBRACKET  */
-#line 353 "12340370_12340340.y"
+#line 354 "12340370_12340340.y"
                                         {
     char *ifexit=(yyvsp[-3].str);
     printf("%s :\n",ifexit);
 }
-#line 1859 "y.tab.c"
+#line 1857 "y.tab.c"
     break;
 
   case 55: /* LoopStmt: WhileStmt  */
-#line 359 "12340370_12340340.y"
+#line 360 "12340370_12340340.y"
                       {
     (yyval.str)=(yyvsp[0].str);
 }
-#line 1867 "y.tab.c"
+#line 1865 "y.tab.c"
     break;
 
   case 56: /* whilestart: WHILE  */
-#line 364 "12340370_12340340.y"
+#line 365 "12340370_12340340.y"
                    {
     char* whilebegin=new_label();
     printf("%s : \n",whilebegin);
     (yyval.str)=whilebegin;
 }
-#line 1877 "y.tab.c"
+#line 1875 "y.tab.c"
     break;
 
   case 57: /* whilecond: ROUNDLBRACKET booleanExp ROUNDRBRACKET  */
-#line 369 "12340370_12340340.y"
+#line 370 "12340370_12340340.y"
                                                    {
     char* condtrue=new_label();
     char* condfalse=new_label();
@@ -1886,20 +1884,20 @@ sprintf(temp, "array(%s)", (yyvsp[-4].str));
     printf("%s :\n",condtrue);
     (yyval.str)=condfalse;
 }
-#line 1890 "y.tab.c"
+#line 1888 "y.tab.c"
     break;
 
   case 58: /* WhileStmt: whilestart whilecond CURLYLBRACKET Statement CURLYRBRACKET  */
-#line 378 "12340370_12340340.y"
+#line 379 "12340370_12340340.y"
                                                                       {
    printf("goto %s\n",(yyvsp[-4].str));
    printf("%s : \n",(yyvsp[-3].str));
 }
-#line 1899 "y.tab.c"
+#line 1897 "y.tab.c"
     break;
 
 
-#line 1903 "y.tab.c"
+#line 1901 "y.tab.c"
 
       default: break;
     }
@@ -2092,7 +2090,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 383 "12340370_12340340.y"
+#line 384 "12340370_12340340.y"
 
 
 
@@ -2116,7 +2114,7 @@ int main(int argc, char **argv) {
 }
 
 void yyerror(const char *s) {
-    printf("Sematics Error: %s\n", s);
+    printf("Sematics Error: %s at line %d\n", s,yylineno-1);
     printf("Exiting the analysis \n");
     exit(1);
 } 

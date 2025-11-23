@@ -3,6 +3,7 @@
 #include "y.tab.h"
 extern int yylineno;
 %}
+%option yylineno
 
 %%
 "void"           { return VOID; }
@@ -24,7 +25,7 @@ extern int yylineno;
 "NewArray"       { return NEWARRAY; }
 "main"           { return MAIN; }
 
-[-]?[0-9]+ { yylval.num = atoi(yytext); return NUMBER; }
+[0-9]+ { yylval.num = atoi(yytext); return NUMBER; }
 [0-9]+"."[0-9]+ { yylval.fnum = atof(yytext); return FNUMBER; }
 
 [a-zA-Z][a-zA-Z0-9_]*      {if(strlen(yytext)<=31) {yylval.str = strdup(yytext); return IDENTIFIER;}
@@ -61,8 +62,9 @@ extern int yylineno;
 "["     {return SQUARELBRACKET;}
 "]"     {return SQUARERBRACKET;}
 "//"[^\n]* {}
-[ \n\t]+ {}
 "/*"([^*]|\*+[^*/])*\*+"/"  { }
+[ \t\n]+   {}
+. {printf("Lexical error at line %d because of %s\n",yylineno,yytext);exit(1);}
    
 %%
 

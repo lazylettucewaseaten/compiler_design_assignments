@@ -1,0 +1,10 @@
+void main () {
+    @int i;
+    int k,x;
+    int  j;
+    float u,v;
+
+    int arr[1345];
+    j=arr[j+2]
+}
+
